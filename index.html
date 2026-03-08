@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaQuest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --g: #58cc02;
+            --gd: #46a302;
+            --gl: #d7ffb8;
+            --b: #1cb0f6;
+            --bl: #e0f5ff;
+            --r: #ff4b4b;
+            --rl: #ffd9d9;
+            --y: #ffc800;
+            --p: #9b59f5;
+            --o: #ff9600;
+            --gray: #afafaf;
+            --light: #f7f7f7;
+            --txt: #3c3c3c;
+            --brd: #e5e5e5;
+            --bg: #fff;
+            --card: #fff;
+            --hdr: #fff
+        }
+
+        .dark {
+            --light: #1a1a2e;
+            --txt: #e8e8f0;
+            --brd: #2e2e45;
+            --bg: #12121f;
+            --card: #1e1e30;
+            --hdr: #16162a;
+            --gray: #6e6e8a
+        }
+
+        body {
+            background: #0f0f1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Nunito', sans-serif
+        }
+
+        .phone {
+            width: 390px;
+            height: 844px;
+            background: #fff;
+            border-radius: 44px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 40px 120px rgba(0, 0, 0, .7), 0 0 0 10px #1e1e30, 0 0 0 12px #2e2e45
+        }
+
+        /* screens */
+        .scr {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bg)
+        }
+
+        .scr.show {
+            display: flex
+        }
+
+        /* ── SPLASH ── */
+        #sSplash {
+            background: linear-gradient(160deg, #0f0f1a, #1a1040);
+            align-items: center;
+            justify-content: center;
+            gap: 14px
+        }
+
+        .owl-big {
+            font-size: 88px;
+            animation: fl 3s ease-in-out infinite
+        }
+
+        @keyframes fl {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-12px)
+            }
+        }
+
+        .sp-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff
+        }
+
+        .sp-sub {
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .45);
+            margin-bottom: 8px
+        }
+
+        .btn-green {
+            background: var(--g);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            padding: 17px 56px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 5px 0 var(--gd);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            transition: transform .1s, box-shadow .1s
+        }
+
+        .btn-green:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 var(--gd)
+        }
+
+        /* ── HOME ── */
+        #sHome {
+            background: var(--light);
+            color: var(--txt)
+        }
+
+        .hdr {
+            background: var(--hdr);
+            padding: 48px 20px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--brd)
+        }
+
+        .hlang {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 900;
+            font-size: 14px
+        }
+
+        .hstats {
+            display: flex;
+            gap: 12px
+        }
+
+        .chip {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 900;
+            font-size: 14px
+        }
+
+        .chip.s {
+            color: var(--o)
+        }
+
+        .chip.x {
+            color: var(--p)
+        }
+
+        .chip.h {
+            color: var(--r)
+        }
+
+        .hbody {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px
+        }
+
+        .hbody::-webkit-scrollbar {
+            display: none
+        }
+
+        .xp-card {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 13px 15px;
+            margin-bottom: 12px;
+            border: 2px solid var(--brd)
+        }
+
+        .xp-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            font-size: 12px;
+            font-weight: 800
+        }
+
+        .xp-track {
+            background: var(--brd);
+            border-radius: 100px;
+            height: 13px;
+            overflow: hidden
+        }
+
+        .xp-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--p), #c06ef5);
+            border-radius: 100px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .xp-bar::after {
+            content: '';
+            position: absolute;
+            inset: 0 auto 0 -60%;
+            width: 60%;
+            background: rgba(255, 255, 255, .25);
+            animation: sh 2s infinite
+        }
+
+        @keyframes sh {
+            to {
+                left: 160%
+            }
+        }
+
+        .tabs {
+            display: flex;
+            gap: 7px;
+            margin-bottom: 12px;
+            overflow-x: auto;
+            padding-bottom: 2px
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none
+        }
+
+        .tab {
+            flex-shrink: 0;
+            padding: 7px 14px;
+            border-radius: 100px;
+            border: 2.5px solid;
+            font-size: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            background: transparent;
+            font-family: 'Nunito', sans-serif
+        }
+
+        .tab.a1 {
+            border-color: var(--g);
+            color: var(--g)
+        }
+
+        .tab.a1.on {
+            background: var(--g);
+            color: #fff
+        }
+
+        .tab.a2 {
+            border-color: var(--b);
+            color: var(--b)
+        }
+
+        .tab.a2.on {
+            background: var(--b);
+            color: #fff
+        }
+
+        .tab.b1 {
+            border-color: var(--o);
+            color: var(--o)
+        }
+
+        .tab.b1.on {
+            background: var(--o);
+            color: #fff
+        }
+
+        .tab.b2 {
+            border-color: var(--p);
+            color: var(--p)
+        }
+
+        .tab.b2.on {
+            background: var(--p);
+            color: #fff
+        }
+
+        .stitle {
+            font-size: 11px;
+            font-weight: 900;
+            color: var(--gray);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 10px
+        }
+
+        .lessons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px
+        }
+
+        .lbtn {
+            position: relative;
+            cursor: pointer;
+            transition: transform .15s
+        }
+
+        .lbtn:active {
+            transform: scale(.92)
+        }
+
+        .lcircle {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px
+        }
+
+        .lcircle.done {
+            background: var(--g);
+            box-shadow: 0 5px 0 var(--gd)
+        }
+
+        .lcircle.active {
+            background: var(--y);
+            box-shadow: 0 5px 0 #c09900;
+            animation: bob 2s infinite
+        }
+
+        .lcircle.locked {
+            background: #e0e0e0;
+            box-shadow: 0 5px 0 #bbb
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-5px)
+            }
+        }
+
+        .lstars {
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            white-space: nowrap
+        }
+
+        .llabel {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--gray);
+            margin-top: 3px
+        }
+
+        .lbtn:nth-child(odd) {
+            margin-left: -45px
+        }
+
+        .lbtn:nth-child(even) {
+            margin-left: 45px
+        }
+
+        .bnav {
+            background: var(--hdr);
+            border-top: 2px solid var(--brd);
+            display: flex;
+            padding: 8px 0 22px;
+            flex-shrink: 0
+        }
+
+        .ni {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 5px 0;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        .ni-icon {
+            font-size: 20px
+        }
+
+        .ni-label {
+            font-size: 9px;
+            font-weight: 900;
+            color: var(--gray);
+            letter-spacing: .3px;
+            text-transform: uppercase
+        }
+
+        .ni.on .ni-label {
+            color: var(--g)
+        }
+
+        .ni.on .ni-icon {
+            filter: drop-shadow(0 0 4px rgba(88, 204, 2, .5))
+        }
+
+        .coming-soon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            gap: 12px
+        }
+
+        .coming-soon .cs-icon {
+            font-size: 60px
+        }
+
+        .coming-soon h3 {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--txt)
+        }
+
+        .coming-soon p {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gray);
+            line-height: 1.5
+        }
+
+        /* ── QUIZ & READING SHARED ── */
+        .qhdr {
+            padding: 48px 18px 12px;
+            display: flex;
+            align-items: center;
+            gap: 11px
+        }
+
+        .xbtn {
+            background: none;
+            border: none;
+            font-size: 19px;
+            cursor: pointer;
+            color: var(--gray);
+            padding: 4px;
+            font-family: 'Nunito', sans-serif
+        }
+
+        .prog-wrap {
+            flex: 1;
+            background: var(--brd);
+            border-radius: 100px;
+            height: 15px;
+            overflow: hidden
+        }
+
+        .prog-fill {
+            height: 100%;
+            background: var(--g);
+            border-radius: 100px;
+            transition: width .5s ease
+        }
+
+        .hearts {
+            font-size: 16px;
+            letter-spacing: 1px
+        }
+
+        .qtype {
+            font-size: 11px;
+            font-weight: 900;
+            color: var(--gray);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 5px
+        }
+
+        .qlvl {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 3px 9px;
+            border-radius: 100px;
+            color: #fff;
+            margin-bottom: 14px
+        }
+
+        .opts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px
+        }
+
+        .opts-grid.stack {
+            grid-template-columns: 1fr
+        }
+
+        .opt {
+            background: var(--card);
+            border: 3px solid var(--brd);
+            border-radius: 13px;
+            padding: 11px 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 900;
+            color: var(--txt);
+            cursor: pointer;
+            transition: all .15s;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px
+        }
+
+        .opt:hover {
+            border-color: var(--b);
+            background: var(--bl)
+        }
+
+        .opt.sel {
+            border-color: var(--b);
+            background: var(--bl)
+        }
+
+        .opt.ok {
+            border-color: var(--g);
+            background: var(--gl);
+            animation: pop .3s ease
+        }
+
+        .opt.no {
+            border-color: var(--r);
+            background: var(--rl);
+            animation: shk .4s ease
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(.88)
+            }
+
+            60% {
+                transform: scale(1.06)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        @keyframes shk {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            25% {
+                transform: translateX(-7px)
+            }
+
+            75% {
+                transform: translateX(7px)
+            }
+        }
+
+        .chk {
+            width: 100%;
+            padding: 15px;
+            border-radius: 13px;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            margin-top: auto;
+            transition: all .15s
+        }
+
+        .chk.on {
+            background: var(--g);
+            color: #fff;
+            box-shadow: 0 5px 0 var(--gd)
+        }
+
+        .chk.on:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 var(--gd)
+        }
+
+        .chk.off {
+            background: var(--light);
+            color: var(--gray);
+            pointer-events: none
+        }
+
+        .fb {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 20px 36px;
+            border-radius: 22px 22px 0 0;
+            transform: translateY(100%);
+            transition: transform .4s cubic-bezier(.34, 1.56, .64, 1);
+            z-index: 25
+        }
+
+        .fb.show {
+            transform: translateY(0)
+        }
+
+        .fb.ok {
+            background: var(--gl);
+            border-top: 4px solid var(--g)
+        }
+
+        .fb.no {
+            background: var(--rl);
+            border-top: 4px solid var(--r)
+        }
+
+        .fb-row {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 5px
+        }
+
+        .fb-ico {
+            font-size: 28px
+        }
+
+        .fb-ttl {
+            font-size: 19px;
+            font-weight: 900
+        }
+
+        .fb.ok .fb-ttl {
+            color: var(--gd)
+        }
+
+        .fb.no .fb-ttl {
+            color: var(--r)
+        }
+
+        .fb-sub {
+            font-size: 12px;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 14px;
+            padding-left: 37px
+        }
+
+        .cont {
+            width: 100%;
+            padding: 14px;
+            border-radius: 13px;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            transition: all .15s
+        }
+
+        .cont.g {
+            background: var(--g);
+            color: #fff;
+            box-shadow: 0 5px 0 var(--gd)
+        }
+
+        .cont.g:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 var(--gd)
+        }
+
+        .cont.r {
+            background: var(--r);
+            color: #fff;
+            box-shadow: 0 5px 0 #b33
+        }
+
+        /* QUIZ Specific */
+        #sQuiz {
+            background: var(--bg)
+        }
+
+        .qbody {
+            flex: 1;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: 0
+        }
+
+        .char-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            margin-bottom: 12px
+        }
+
+        .owl-sm {
+            font-size: 44px
+        }
+
+        .bubble {
+            background: var(--light);
+            border-radius: 14px 14px 14px 4px;
+            padding: 13px 15px;
+            font-size: 21px;
+            font-weight: 900;
+            flex: 1;
+            border: 2px solid var(--brd);
+            color: var(--txt);
+            transition: background .3s
+        }
+
+        /* READING Specific */
+        #sReading {
+            background: var(--bg)
+        }
+
+        .r-body-wrap {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px 100px;
+            position: relative;
+        }
+
+        .r-title {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: var(--txt);
+        }
+
+        .r-text {
+            background: var(--card);
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--txt);
+            margin-bottom: 20px;
+            border: 2px solid var(--brd);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
+        }
+
+        .r-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 20px 24px;
+            background: var(--bg);
+            border-top: 2px solid var(--brd);
+            z-index: 10;
+        }
+
+        /* ── COMPLETE ── */
+        #sComplete {
+            background: linear-gradient(180deg, #58cc02, #3a9900);
+            align-items: center;
+            justify-content: center;
+            padding: 36px 24px
+        }
+
+        .c-owl {
+            font-size: 76px;
+            margin-bottom: 10px;
+            animation: bob 1s ease
+        }
+
+        .c-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 4px
+        }
+
+        .c-sub {
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .85);
+            text-align: center;
+            margin-bottom: 28px
+        }
+
+        .c-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 28px
+        }
+
+        .c-card {
+            background: rgba(255, 255, 255, .2);
+            border-radius: 13px;
+            padding: 13px 10px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, .3)
+        }
+
+        .c-card .ci {
+            font-size: 22px;
+            margin-bottom: 2px
+        }
+
+        .c-card .cv {
+            font-size: 19px;
+            font-weight: 900;
+            color: #fff
+        }
+
+        .c-card .cl {
+            font-size: 9px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, .8);
+            text-transform: uppercase;
+            letter-spacing: .4px
+        }
+
+        .btn-white {
+            width: 100%;
+            padding: 16px;
+            border-radius: 13px;
+            border: none;
+            background: #fff;
+            color: var(--gd);
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            box-shadow: 0 5px 0 rgba(0, 0, 0, .12);
+            transition: all .15s
+        }
+
+        .btn-white:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, .12)
+        }
+
+        /* overlays */
+        .xp-pop {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: var(--y);
+            color: var(--txt);
+            font-size: 17px;
+            font-weight: 900;
+            padding: 9px 20px;
+            border-radius: 100px;
+            z-index: 20;
+            pointer-events: none;
+            transition: all .3s cubic-bezier(.34, 1.56, .64, 1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .2)
+        }
+
+        .xp-pop.show {
+            transform: translate(-50%, -200%) scale(1)
+        }
+
+        .xp-pop.hide {
+            transform: translate(-50%, -280%) scale(.8);
+            opacity: 0
+        }
+
+        .lock-msg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, .82);
+            color: #fff;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 900;
+            text-align: center;
+            z-index: 30;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s;
+            line-height: 1.5
+        }
+
+        .lock-msg.show {
+            opacity: 1;
+            pointer-events: all
+        }
+
+        /* ── SETTINGS PANEL ── */
+        .settings-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 40;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s
+        }
+
+        .settings-overlay.show {
+            opacity: 1;
+            pointer-events: all
+        }
+
+        .settings-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card);
+            border-radius: 24px 24px 0 0;
+            padding: 20px 22px 40px;
+            z-index: 41;
+            transform: translateY(100%);
+            transition: transform .4s cubic-bezier(.34, 1.56, .64, 1)
+        }
+
+        .settings-panel.show {
+            transform: translateY(0)
+        }
+
+        .sp-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px
+        }
+
+        .sp-title-row h3 {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--txt)
+        }
+
+        .sp-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--gray);
+            font-family: 'Nunito', sans-serif
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--brd)
+        }
+
+        .theme-label {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--txt)
+        }
+
+        .theme-label span {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray);
+            margin-top: 2px
+        }
+
+        .toggle {
+            width: 52px;
+            height: 28px;
+            border-radius: 100px;
+            background: var(--brd);
+            position: relative;
+            cursor: pointer;
+            transition: background .3s;
+            flex-shrink: 0
+        }
+
+        .toggle.on {
+            background: var(--g)
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #fff;
+            transition: transform .3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2)
+        }
+
+        .toggle.on::after {
+            transform: translateX(24px)
+        }
+
+        .gear-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            -webkit-tap-highlight-color: transparent
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone" id="phone">
+        <div class="xp-pop" id="xpPop">⚡ +15 XP</div>
+        <div class="lock-msg" id="lockMsg">🔒 Önce önceki<br>dersleri tamamla!</div>
+
+        <!-- SPLASH -->
+        <div class="scr show" id="sSplash">
+            <div class="owl-big">🦉</div>
+            <div class="sp-title">LinguaQuest</div>
+            <div class="sp-sub">A1 → B2 İngilizce Yolculuğu</div>
+            <button class="btn-green" id="btnStart">BAŞLA</button>
+        </div>
+
+        <!-- HOME -->
+        <div class="scr" id="sHome">
+            <div class="hdr">
+                <div class="hlang"><span style="font-size:20px">🇬🇧</span> İngilizce</div>
+                <div class="hstats" style="display:flex;align-items:center;gap:10px">
+                    <div class="chip x">⚡ Lv.<span id="hXp">1</span></div>
+                    <button class="gear-btn" id="btnSettings">⚙️</button>
+                </div>
+            </div>
+            <div class="hbody" id="sectionBody">
+                <div class="xp-card">
+                    <div class="xp-row">
+                        <span>⚡ Seviye <span id="lvlDisp">1</span></span>
+                        <span style="color:var(--p);font-weight:900"><span id="xpDisp">0</span> / <span
+                                id="xpNextDisp">100</span> XP</span>
+                    </div>
+                    <div class="xp-track">
+                        <div class="xp-bar" id="xpBar" style="width:0%"></div>
+                    </div>
+                </div>
+                <div id="sectionContent"></div>
+            </div>
+            <div class="bnav">
+                <div class="ni on" data-sec="kelime">
+                    <div class="ni-icon">📚</div>
+                    <div class="ni-label">KELİME</div>
+                </div>
+                <div class="ni" data-sec="okuma">
+                    <div class="ni-icon">📖</div>
+                    <div class="ni-label">OKUMA</div>
+                </div>
+                <div class="ni" data-sec="yazma">
+                    <div class="ni-icon">✍️</div>
+                    <div class="ni-label">YAZMA</div>
+                </div>
+                <div class="ni" data-sec="dinleme">
+                    <div class="ni-icon">🎧</div>
+                    <div class="ni-label">DİNLEME</div>
+                </div>
+                <div class="ni" data-sec="konusma">
+                    <div class="ni-icon">🗣️</div>
+                    <div class="ni-label">KONUŞMA</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="settings-overlay" id="settingsOverlay"></div>
+        <div class="settings-panel" id="settingsPanel">
+            <div class="sp-title-row">
+                <h3>⚙️ Ayarlar</h3>
+                <button class="sp-close" id="btnSettingsClose">✕</button>
+            </div>
+            <div class="theme-toggle">
+                <div class="theme-label">
+                    Koyu Tema
+                    <span>Göz yorgunluğunu azaltır</span>
+                </div>
+                <div class="toggle" id="themeToggle"></div>
+            </div>
+        </div>
+
+        <!-- QUIZ (KELİME) -->
+        <div class="scr" id="sQuiz">
+            <div class="qhdr">
+                <button class="xbtn" id="btnCloseQuiz">✕</button>
+                <div class="prog-wrap">
+                    <div class="prog-fill" id="progFill" style="width:0%"></div>
+                </div>
+                <div class="hearts" id="heartsEl">❤️❤️❤️</div>
+            </div>
+            <div class="qbody">
+                <div class="qtype">Doğru çeviriyi seç</div>
+                <span class="qlvl" id="qBadge">A1</span>
+                <div class="char-row">
+                    <div class="owl-sm">🦉</div>
+                    <div class="bubble" id="qWord">—</div>
+                </div>
+                <div class="opts-grid" id="optsGrid"></div>
+                <button class="chk off" id="btnCheck">KONTROL ET</button>
+            </div>
+            <div class="fb" id="fbPanel">
+                <div class="fb-row">
+                    <span class="fb-ico" id="fbIco"></span>
+                    <span class="fb-ttl" id="fbTtl"></span>
+                </div>
+                <div class="fb-sub" id="fbSub"></div>
+                <button class="cont g" id="btnCont">DEVAM ET</button>
+            </div>
+        </div>
+
+        <!-- READING (OKUMA) -->
+        <div class="scr" id="sReading">
+            <div class="qhdr">
+                <button class="xbtn" id="btnClReading">✕</button>
+                <div class="prog-wrap">
+                    <div class="prog-fill" id="rProgFill" style="width:0%"></div>
+                </div>
+                <div class="hearts" id="rHeartsEl">❤️❤️❤️</div>
+            </div>
+
+            <div class="r-body-wrap">
+                <div style="margin-bottom:12px;">
+                    <span class="qlvl" id="rBadge">A1</span>
+                </div>
+                <div class="r-title" id="rTitle">Metin Başlığı</div>
+                <div class="r-text" id="rText">Buraya okuma parçası gelecek...</div>
+
+                <div class="qtype" id="rQuestionType">METNE GÖRE CEVAPLA</div>
+                <div class="r-title" style="font-size:16px; margin-bottom:12px;" id="rQuestion">Soru buraya gelecek?
+                </div>
+                <div class="opts-grid stack" id="rOptsGrid"></div>
+            </div>
+
+            <div class="r-footer">
+                <button class="chk off" id="btnRCheck">KONTROL ET</button>
+            </div>
+
+            <div class="fb" id="rFbPanel">
+                <div class="fb-row">
+                    <span class="fb-ico" id="rFbIco"></span>
+                    <span class="fb-ttl" id="rFbTtl"></span>
+                </div>
+                <div class="fb-sub" id="rFbSub"></div>
+                <button class="cont g" id="btnRCont">DEVAM ET</button>
+            </div>
+        </div>
+
+        <!-- WRITING (YAZMA) -->
+        <div class="scr" id="sWriting">
+            <div class="qhdr">
+                <button class="xbtn" id="btnClWriting">✕</button>
+                <div class="prog-wrap">
+                    <div class="prog-fill" id="wProgFill" style="width:0%"></div>
+                </div>
+                <div class="hearts" id="wHeartsEl">❤️❤️❤️</div>
+            </div>
+            <div class="qbody">
+                <div class="qtype">İngilizcesini Yaz</div>
+                <span class="qlvl" id="wBadge">A1</span>
+                <div class="char-row">
+                    <div class="owl-sm">🦉</div>
+                    <div class="bubble" id="wQuestion">—</div>
+                </div>
+                <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+                    <input type="text" id="wInput" placeholder="Cevabınızı buraya yazın..."
+                        style="width:100%; padding:15px; border-radius:13px; border:3px solid var(--brd); font-family:'Nunito', sans-serif; font-size:16px; font-weight:800; color:var(--txt); background:var(--card); outline:none; transition:border-color 0.2s;"
+                        autocomplete="off">
+                </div>
+                <button class="chk off" id="btnWCheck" style="margin-top:10px;">KONTROL ET</button>
+            </div>
+            <div class="fb" id="wFbPanel">
+                <div class="fb-row">
+                    <span class="fb-ico" id="wFbIco"></span>
+                    <span class="fb-ttl" id="wFbTtl"></span>
+                </div>
+                <div class="fb-sub" id="wFbSub"></div>
+                <button class="cont g" id="btnWCont">DEVAM ET</button>
+            </div>
+        </div>
+
+        <!-- LISTENING (DİNLEME) -->
+        <div class="scr" id="sListening">
+            <div class="qhdr">
+                <button class="xbtn" id="btnClListening">✕</button>
+                <div class="prog-wrap">
+                    <div class="prog-fill" id="lProgFill" style="width:0%"></div>
+                </div>
+                <div class="hearts" id="lHeartsEl">❤️❤️❤️</div>
+            </div>
+            <div class="qbody">
+                <div class="qtype">Duyduğunu Anla</div>
+                <span class="qlvl" id="lBadge">A1</span>
+
+                <div
+                    style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;">
+                    <button id="btnPlayAudio"
+                        style="width:100px; height:100px; border-radius:50%; background:var(--b); border:none; box-shadow:0 8px 0 #1899d6; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:40px; color:#fff; transition:transform 0.1s, box-shadow 0.1s;">
+                        🔊
+                    </button>
+                    <div style="font-size:14px; font-weight:800; color:var(--gray);">Dinlemek için tıkla</div>
+                </div>
+
+                <div class="opts-grid stack" id="lOptsGrid"></div>
+                <button class="chk off" id="btnLCheck">KONTROL ET</button>
+            </div>
+            <div class="fb" id="lFbPanel">
+                <div class="fb-row">
+                    <span class="fb-ico" id="lFbIco"></span>
+                    <span class="fb-ttl" id="lFbTtl"></span>
+                </div>
+                <div class="fb-sub" id="lFbSub"></div>
+                <button class="cont g" id="btnLCont">DEVAM ET</button>
+            </div>
+        </div>
+
+        <!-- COMPLETE -->
+        <div class="scr" id="sComplete">
+            <div class="c-owl">🦉</div>
+            <div class="c-title">Muhteşemsin!</div>
+            <div class="c-sub">Dersi başarıyla tamamladın 🎉</div>
+            <div class="c-grid">
+                <div class="c-card">
+                    <div class="ci">⚡</div>
+                    <div class="cv" id="cXp">+45</div>
+                    <div class="cl">XP</div>
+                </div>
+                <div class="c-card">
+                    <div class="ci">🎯</div>
+                    <div class="cv" id="cAcc">100%</div>
+                    <div class="cl">Doğruluk</div>
+                </div>
+            </div>
+            <button class="btn-white" id="btnToHome">ANA SAYFAYA DÖN</button>
+            <div id="cLvlUp"
+                style="display:none;margin-top:14px;background:rgba(255,255,255,.25);color:#fff;font-size:16px;font-weight:900;padding:12px 20px;border-radius:14px;text-align:center;border:2px solid rgba(255,255,255,.4)">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // ── DATA: KELİME (TÜM 50'ŞER DERSLİ LİSTELER) ──────────────────────
+            var UNITS_A1 = [["able", "about", "above", "across", "act", "add", "after", "again", "ago", "agree", "air", "all", "allow", "already", "also", "always", "and", "animal", "another", "answer"], ["any", "area", "around", "art", "as", "ask", "at", "away", "baby", "back", "bad", "bag", "ball", "bank", "be", "beautiful", "because", "become", "bed", "before"], ["begin", "big", "black", "blood", "blue", "book", "born", "both", "box", "boy", "break", "bring", "brother", "brown", "build", "bus", "but", "buy", "by", "call"], ["can", "car", "carry", "cat", "chair", "change", "check", "child", "city", "class", "clean", "clear", "close", "clothes", "cold", "color", "come", "common", "cook", "cost"], ["count", "country", "course", "cut", "dad", "day", "dead", "different", "difficult", "do", "dog", "door", "down", "draw", "dream", "drive", "drop", "each", "early", "easy"], ["eat", "end", "enjoy", "enough", "enter", "even", "evening", "ever", "every", "face", "fall", "family", "far", "fast", "feel", "few", "find", "fine", "fire", "first"], ["fish", "five", "fly", "food", "four", "free", "friend", "from", "front", "full", "funny", "game", "get", "girl", "give", "go", "good", "great", "green", "group"], ["grow", "hand", "happy", "hard", "have", "head", "hear", "help", "here", "high", "home", "hope", "hot", "hour", "house", "how", "hundred", "idea", "if", "in"], ["into", "just", "keep", "kind", "know", "land", "large", "last", "late", "laugh", "learn", "leave", "left", "leg", "let", "life", "light", "like", "listen", "little"], ["live", "long", "look", "lot", "love", "low", "make", "man", "many", "market", "maybe", "me", "meet", "minute", "money", "month", "more", "morning", "most", "move"], ["much", "music", "my", "name", "near", "need", "new", "next", "nice", "night", "no", "north", "not", "now", "number", "of", "off", "often", "old", "on"], ["open", "or", "other", "out", "over", "own", "page", "part", "people", "place", "plan", "play", "point", "poor", "put", "read", "red", "right", "road", "room"], ["run", "same", "school", "sea", "see", "sell", "send", "seven", "short", "show", "sing", "sister", "sit", "six", "sleep", "small", "smile", "some", "son", "soon"], ["sorry", "south", "speak", "stand", "start", "stay", "stop", "story", "street", "study", "sun", "swim", "take", "talk", "teacher", "tell", "ten", "the", "then", "thing"], ["think", "three", "time", "tired", "to", "today", "together", "too", "top", "town", "try", "turn", "two", "under", "up", "use", "very", "walk", "want", "water"], ["way", "we", "week", "well", "west", "what", "when", "where", "which", "white", "who", "why", "window", "with", "woman", "word", "work", "world", "write", "year"], ["yes", "yet", "you", "young", "your", "able", "about", "above", "across", "act", "add", "after", "again", "ago", "agree", "air", "all", "allow", "already", "also"], ["always", "and", "animal", "another", "answer", "any", "area", "around", "art", "as", "ask", "at", "away", "baby", "back", "bad", "bag", "ball", "bank", "be"], ["beautiful", "because", "become", "bed", "before", "begin", "big", "black", "blood", "blue", "book", "born", "both", "box", "boy", "break", "bring", "brother", "brown", "build"], ["bus", "but", "buy", "by", "call", "can", "car", "carry", "cat", "chair", "change", "check", "child", "city", "class", "clean", "clear", "close", "clothes", "cold"], ["color", "come", "common", "cook", "cost", "count", "country", "course", "cut", "dad", "day", "dead", "different", "difficult", "do", "dog", "door", "down", "draw", "dream"], ["drive", "drop", "each", "early", "easy", "eat", "end", "enjoy", "enough", "enter", "even", "evening", "ever", "every", "face", "fall", "family", "far", "fast", "feel"], ["few", "find", "fine", "fire", "first", "fish", "five", "fly", "food", "four", "free", "friend", "from", "front", "full", "funny", "game", "get", "girl", "give"], ["go", "good", "great", "green", "group", "grow", "hand", "happy", "hard", "have", "head", "hear", "help", "here", "high", "home", "hope", "hot", "hour", "house"], ["how", "hundred", "idea", "if", "in", "into", "just", "keep", "kind", "know", "land", "large", "last", "late", "laugh", "learn", "leave", "left", "leg", "let"], ["life", "light", "like", "listen", "little", "live", "long", "look", "lot", "love", "low", "make", "man", "many", "market", "maybe", "me", "meet", "minute", "money"], ["month", "more", "morning", "most", "move", "much", "music", "my", "name", "near", "need", "new", "next", "nice", "night", "no", "north", "not", "now", "number"], ["of", "off", "often", "old", "on", "open", "or", "other", "out", "over", "own", "page", "part", "people", "place", "plan", "play", "point", "poor", "put"], ["read", "red", "right", "road", "room", "run", "same", "school", "sea", "see", "sell", "send", "seven", "short", "show", "sing", "sister", "sit", "six", "sleep"], ["small", "smile", "some", "son", "soon", "sorry", "south", "speak", "stand", "start", "stay", "stop", "story", "street", "study", "sun", "swim", "take", "talk", "teacher"], ["tell", "ten", "the", "then", "thing", "think", "three", "time", "tired", "to", "today", "together", "too", "top", "town", "try", "turn", "two", "under", "up"], ["use", "very", "walk", "want", "water", "way", "we", "week", "well", "west", "what", "when", "where", "which", "white", "who", "why", "window", "with", "woman"], ["word", "work", "world", "write", "year", "yes", "yet", "you", "young", "your", "able", "about", "above", "across", "act", "add", "after", "again", "ago", "agree"], ["air", "all", "allow", "already", "also", "always", "and", "animal", "another", "answer", "any", "area", "around", "art", "as", "ask", "at", "away", "baby", "back"], ["bad", "bag", "ball", "bank", "be", "beautiful", "because", "become", "bed", "before", "begin", "big", "black", "blood", "blue", "book", "born", "both", "box", "boy"], ["break", "bring", "brother", "brown", "build", "bus", "but", "buy", "by", "call", "can", "car", "carry", "cat", "chair", "change", "check", "child", "city", "class"], ["clean", "clear", "close", "clothes", "cold", "color", "come", "common", "cook", "cost", "count", "country", "course", "cut", "dad", "day", "dead", "different", "difficult", "do"], ["dog", "door", "down", "draw", "dream", "drive", "drop", "each", "early", "easy", "eat", "end", "enjoy", "enough", "enter", "even", "evening", "ever", "every", "face"], ["fall", "family", "far", "fast", "feel", "few", "find", "fine", "fire", "first", "fish", "five", "fly", "food", "four", "free", "friend", "from", "front", "full"], ["funny", "game", "get", "girl", "give", "go", "good", "great", "green", "group", "grow", "hand", "happy", "hard", "have", "head", "hear", "help", "here", "high"], ["home", "hope", "hot", "hour", "house", "how", "hundred", "idea", "if", "in", "into", "just", "keep", "kind", "know", "land", "large", "last", "late", "laugh"], ["learn", "leave", "left", "leg", "let", "life", "light", "like", "listen", "little", "live", "long", "look", "lot", "love", "low", "make", "man", "many", "market"], ["maybe", "me", "meet", "minute", "money", "month", "more", "morning", "most", "move", "much", "music", "my", "name", "near", "need", "new", "next", "nice", "night"], ["no", "north", "not", "now", "number", "of", "off", "often", "old", "on", "open", "or", "other", "out", "over", "own", "page", "part", "people", "place"], ["plan", "play", "point", "poor", "put", "read", "red", "right", "road", "room", "run", "same", "school", "sea", "see", "sell", "send", "seven", "short", "show"], ["sing", "sister", "sit", "six", "sleep", "small", "smile", "some", "son", "soon", "sorry", "south", "speak", "stand", "start", "stay", "stop", "story", "street", "study"], ["sun", "swim", "take", "talk", "teacher", "tell", "ten", "the", "then", "thing", "think", "three", "time", "tired", "to", "today", "together", "too", "top", "town"], ["try", "turn", "two", "under", "up", "use", "very", "walk", "want", "water", "way", "we", "week", "well", "west", "what", "when", "where", "which", "white"], ["who", "why", "window", "with", "woman", "word", "work", "world", "write", "year", "yes", "yet", "you", "young", "your", "able", "about", "above", "across", "act"], ["add", "after", "again", "ago", "agree", "air", "all", "allow", "already", "also", "always", "and", "animal", "another", "answer", "any", "area", "around", "art", "as"]];
+
+            var UNITS_A2 = [["accept", "accident", "act", "activity", "adult", "advice", "affect", "afraid", "age", "agree", "ahead", "almost", "alone", "although", "amount", "angry", "another", "apply", "arm", "arrive"], ["attention", "audience", "back", "basic", "beautiful", "behavior", "believe", "belong", "beside", "between", "both", "bridge", "bright", "brother", "budget", "care", "catch", "cause", "center", "century"], ["certain", "certainly", "character", "choice", "choose", "clear", "clearly", "close", "collect", "college", "comfort", "complete", "computer", "concern", "condition", "connect", "control", "correct", "couple", "create"], ["culture", "customer", "dark", "daughter", "decide", "deep", "describe", "develop", "difference", "dinner", "direction", "discover", "discuss", "draw", "drug", "either", "else", "emotion", "employee", "environment"], ["event", "example", "experience", "explain", "fail", "famous", "fast", "feel", "fight", "fill", "finish", "fit", "floor", "follow", "force", "foreign", "forget", "forward", "found", "future"], ["general", "government", "grow", "guess", "guest", "hair", "half", "happen", "heavy", "history", "hit", "hold", "hospital", "however", "huge", "human", "husband", "important", "include", "inform"], ["instead", "interest", "introduce", "job", "join", "journey", "judge", "kill", "kitchen", "language", "later", "laugh", "law", "lay", "leader", "letter", "likely", "limit", "list", "lose"], ["magazine", "manager", "marry", "meal", "measure", "media", "meet", "member", "memory", "mention", "message", "method", "mind", "miss", "modern", "moment", "natural", "nature", "notice", "offer"], ["office", "often", "once", "order", "outside", "parent", "particular", "party", "pass", "patient", "pay", "perform", "period", "person", "phone", "picture", "plan", "popular", "position", "practice"], ["prepare", "present", "private", "produce", "professor", "program", "protect", "public", "push", "quality", "question", "quite", "race", "raise", "reach", "realize", "reason", "receive", "record", "remain"], ["remember", "repair", "require", "respect", "rest", "result", "return", "rich", "rise", "risk", "rough", "round", "rule", "safe", "scene", "season", "section", "serve", "service", "set"], ["several", "sign", "since", "situation", "size", "skill", "skin", "slow", "smart", "society", "sometimes", "son", "sort", "special", "spend", "stage", "star", "statement", "subject", "support"], ["sure", "surprise", "system", "team", "term", "thousand", "thought", "travel", "treat", "trip", "trouble", "true", "trust", "understand", "until", "usual", "value", "various", "voice", "wall"], ["weather", "weight", "wild", "window", "wish", "worry", "zone", "accept", "accident", "act", "activity", "adult", "advice", "affect", "afraid", "age", "agree", "ahead", "almost", "alone"], ["although", "amount", "angry", "another", "apply", "arm", "arrive", "attention", "audience", "back", "basic", "beautiful", "behavior", "believe", "belong", "beside", "between", "both", "bridge", "bright"], ["brother", "budget", "care", "catch", "cause", "center", "century", "certain", "certainly", "character", "choice", "choose", "clear", "clearly", "close", "collect", "college", "comfort", "complete", "computer"], ["concern", "condition", "connect", "control", "correct", "couple", "create", "culture", "customer", "dark", "daughter", "decide", "deep", "describe", "develop", "difference", "dinner", "direction", "discover", "discuss"], ["draw", "drug", "either", "else", "emotion", "employee", "environment", "event", "example", "experience", "explain", "fail", "famous", "fast", "feel", "fight", "fill", "finish", "fit", "floor"], ["follow", "force", "foreign", "forget", "forward", "found", "future", "general", "government", "grow", "guess", "guest", "hair", "half", "happen", "heavy", "history", "hit", "hold", "hospital"], ["however", "huge", "human", "husband", "important", "include", "inform", "instead", "interest", "introduce", "job", "join", "journey", "judge", "kill", "kitchen", "language", "later", "laugh", "law"], ["lay", "leader", "letter", "likely", "limit", "list", "lose", "magazine", "manager", "marry", "meal", "measure", "media", "meet", "member", "memory", "mention", "message", "method", "mind"], ["miss", "modern", "moment", "natural", "nature", "notice", "offer", "office", "often", "once", "order", "outside", "parent", "particular", "party", "pass", "patient", "pay", "perform", "period"], ["person", "phone", "picture", "plan", "popular", "position", "practice", "prepare", "present", "private", "produce", "professor", "program", "protect", "public", "push", "quality", "question", "quite", "race"], ["raise", "reach", "realize", "reason", "receive", "record", "remain", "remember", "repair", "require", "respect", "rest", "result", "return", "rich", "rise", "risk", "rough", "round", "rule"], ["safe", "scene", "season", "section", "serve", "service", "set", "several", "sign", "since", "situation", "size", "skill", "skin", "slow", "smart", "society", "sometimes", "son", "sort"], ["special", "spend", "stage", "star", "statement", "subject", "support", "sure", "surprise", "system", "team", "term", "thousand", "thought", "travel", "treat", "trip", "trouble", "true", "trust"], ["understand", "until", "usual", "value", "various", "voice", "wall", "weather", "weight", "wild", "window", "wish", "worry", "zone", "accept", "accident", "act", "activity", "adult", "advice"], ["affect", "afraid", "age", "agree", "ahead", "almost", "alone", "although", "amount", "angry", "another", "apply", "arm", "arrive", "attention", "audience", "back", "basic", "beautiful", "behavior"], ["believe", "belong", "beside", "between", "both", "bridge", "bright", "brother", "budget", "care", "catch", "cause", "center", "century", "certain", "certainly", "character", "choice", "choose", "clear"], ["clearly", "close", "collect", "college", "comfort", "complete", "computer", "concern", "condition", "connect", "control", "correct", "couple", "create", "culture", "customer", "dark", "daughter", "decide", "deep"], ["describe", "develop", "difference", "dinner", "direction", "discover", "discuss", "draw", "drug", "either", "else", "emotion", "employee", "environment", "event", "example", "experience", "explain", "fail", "famous"], ["fast", "feel", "fight", "fill", "finish", "fit", "floor", "follow", "force", "foreign", "forget", "forward", "found", "future", "general", "government", "grow", "guess", "guest", "hair"], ["half", "happen", "heavy", "history", "hit", "hold", "hospital", "however", "huge", "human", "husband", "important", "include", "inform", "instead", "interest", "introduce", "job", "join", "journey"], ["judge", "kill", "kitchen", "language", "later", "laugh", "law", "lay", "leader", "letter", "likely", "limit", "list", "lose", "magazine", "manager", "marry", "meal", "measure", "media"], ["meet", "member", "memory", "mention", "message", "method", "mind", "miss", "modern", "moment", "natural", "nature", "notice", "offer", "office", "often", "once", "order", "outside", "parent"], ["particular", "party", "pass", "patient", "pay", "perform", "period", "person", "phone", "picture", "plan", "popular", "position", "practice", "prepare", "present", "private", "produce", "professor", "program"], ["protect", "public", "push", "quality", "question", "quite", "race", "raise", "reach", "realize", "reason", "receive", "record", "remain", "remember", "repair", "require", "respect", "rest", "result"], ["return", "rich", "rise", "risk", "rough", "round", "rule", "safe", "scene", "season", "section", "serve", "service", "set", "several", "sign", "since", "situation", "size", "skill"], ["skin", "slow", "smart", "society", "sometimes", "son", "sort", "special", "spend", "stage", "star", "statement", "subject", "support", "sure", "surprise", "system", "team", "term", "thousand"], ["thought", "travel", "treat", "trip", "trouble", "true", "trust", "understand", "until", "usual", "value", "various", "voice", "wall", "weather", "weight", "wild", "window", "wish", "worry"], ["zone", "accept", "accident", "act", "activity", "adult", "advice", "affect", "afraid", "age", "agree", "ahead", "almost", "alone", "although", "amount", "angry", "another", "apply", "arm"], ["arrive", "attention", "audience", "back", "basic", "beautiful", "behavior", "believe", "belong", "beside", "between", "both", "bridge", "bright", "brother", "budget", "care", "catch", "cause", "center"], ["century", "certain", "certainly", "character", "choice", "choose", "clear", "clearly", "close", "collect", "college", "comfort", "complete", "computer", "concern", "condition", "connect", "control", "correct", "couple"], ["create", "culture", "customer", "dark", "decide", "deep", "describe", "develop", "difference", "dinner", "direction", "discover", "discuss", "draw", "drug", "either", "else", "emotion", "employee"], ["environment", "event", "example", "experience", "explain", "fail", "famous", "fast", "feel", "fight", "fill", "finish", "fit", "floor", "follow", "force", "foreign", "forget", "forward", "found"], ["future", "general", "government", "grow", "guess", "guest", "hair", "half", "happen", "heavy", "history", "hit", "hold", "hospital", "however", "huge", "human", "husband", "important", "include"], ["inform", "instead", "interest", "introduce", "job", "join", "journey", "judge", "kill", "kitchen", "language", "later", "laugh", "law", "lay", "leader", "letter", "likely", "limit", "list"], ["lose", "magazine", "manager", "marry", "meal", "measure", "media", "meet", "member", "memory", "mention", "message", "method", "mind", "miss", "modern", "moment", "natural", "nature", "notice"], ["offer", "office", "often", "once", "order", "outside", "parent", "particular", "party", "pass", "patient", "pay", "perform", "period", "person", "phone", "picture", "plan", "popular", "position"], ["practice", "prepare", "present", "private", "produce", "professor", "program", "protect", "public", "push", "quality", "question", "quite", "race", "raise", "reach", "realize", "reason", "receive", "record"]];
+
+            var UNITS_B1 = [["abandon", "ability", "absence", "absorb", "access", "accompany", "achieve", "acknowledge", "acquire", "adaptation", "adequate", "adjust", "administration", "advantage", "advocate", "agency", "agent", "aim", "alternative", "analyse"], ["announce", "anxiety", "apparently", "argument", "aspect", "assess", "assist", "assistance", "assume", "atmosphere", "attempt", "attitude", "authority", "available", "average", "basis", "benefit", "bond", "border", "broad"], ["burden", "capable", "capital", "career", "category", "challenge", "characteristic", "circumstance", "claim", "combination", "commit", "communication", "community", "compare", "competition", "complex", "concentrate", "concept", "conclude", "confident"], ["confirm", "conflict", "consequence", "consider", "considerable", "consist", "construct", "contact", "content", "contribute", "controversial", "convince", "criticism", "current", "database", "debate", "define", "deliver", "demonstrate", "depend"], ["depression", "design", "despite", "determination", "distribute", "diversity", "document", "domestic", "dominant", "drama", "dramatic", "economy", "editor", "educated", "effective", "efficient", "element", "emotion", "emphasis", "encourage"], ["energy", "enormous", "enterprise", "environment", "estimate", "evidence", "evolution", "examination", "exception", "exhibition", "expand", "expectation", "expedition", "expert", "extreme", "facility", "factor", "failure", "feature", "federal"], ["fiction", "financial", "finding", "focus", "formal", "framework", "freedom", "fundamental", "furthermore", "generation", "genuine", "global", "goal", "grant", "guarantee", "guidance", "ideal", "identify", "impact", "implementation"], ["income", "individual", "influence", "institution", "integration", "intelligence", "intention", "interaction", "investment", "issue", "judgment", "justify", "labor", "leadership", "legislation", "locate", "logical", "maintain", "majority", "management"], ["mechanism", "minor", "mission", "moderate", "motivation", "mutual", "negotiate", "network", "neutral", "nuclear", "objective", "observation", "obtain", "operate", "opportunity", "outcome", "overcome", "overview", "participant", "percentage"], ["perspective", "phase", "phenomenon", "policy", "poverty", "prediction", "principle", "priority", "process", "professional", "profit", "progress", "promote", "proportion", "psychological", "publication", "reaction", "recognize", "recommendation", "regulation"], ["relationship", "relevant", "represent", "requirement", "research", "resolution", "resource", "response", "responsibility", "restriction", "retain", "reveal", "revolution", "satisfaction", "schedule", "scientific", "significant", "solution", "specific", "status"], ["strategy", "structure", "substantial", "survey", "technical", "technology", "tension", "theory", "tradition", "transformation", "transition", "trend", "ultimately", "unique", "urban", "variation", "vision", "voluntary", "welfare", "widespread"], ["abandon", "ability", "absence", "absorb", "access", "accompany", "achieve", "acknowledge", "acquire", "adaptation", "adequate", "adjust", "administration", "advantage", "advocate", "agency", "agent", "aim", "alternative", "analyse"], ["announce", "anxiety", "apparently", "argument", "aspect", "assess", "assist", "assistance", "assume", "atmosphere", "attempt", "attitude", "authority", "available", "average", "basis", "benefit", "bond", "border", "broad"], ["burden", "capable", "capital", "career", "category", "challenge", "characteristic", "circumstance", "claim", "combination", "commit", "communication", "community", "compare", "competition", "complex", "concentrate", "concept", "conclude", "confident"], ["confirm", "conflict", "consequence", "consider", "considerable", "consist", "construct", "contact", "content", "contribute", "controversial", "convince", "criticism", "current", "database", "debate", "define", "deliver", "demonstrate", "depend"], ["depression", "design", "despite", "determination", "distribute", "diversity", "document", "domestic", "dominant", "drama", "dramatic", "economy", "editor", "educated", "effective", "efficient", "element", "emotion", "emphasis", "encourage"], ["energy", "enormous", "enterprise", "environment", "estimate", "evidence", "evolution", "examination", "exception", "exhibition", "expand", "expectation", "expedition", "expert", "extreme", "facility", "factor", "failure", "feature", "federal"], ["fiction", "financial", "finding", "focus", "formal", "framework", "freedom", "fundamental", "furthermore", "generation", "genuine", "global", "goal", "grant", "guarantee", "guidance", "ideal", "identify", "impact", "implementation"], ["income", "individual", "influence", "institution", "integration", "intelligence", "intention", "interaction", "investment", "issue", "judgment", "justify", "labor", "leadership", "legislation", "locate", "logical", "maintain", "majority", "management"], ["mechanism", "minor", "mission", "moderate", "motivation", "mutual", "negotiate", "network", "neutral", "nuclear", "objective", "observation", "obtain", "operate", "opportunity", "outcome", "overcome", "overview", "participant", "percentage"], ["perspective", "phase", "phenomenon", "policy", "poverty", "prediction", "principle", "priority", "process", "professional", "profit", "progress", "promote", "proportion", "psychological", "publication", "reaction", "recognize", "recommendation", "regulation"], ["relationship", "relevant", "represent", "requirement", "research", "resolution", "resource", "response", "responsibility", "restriction", "retain", "reveal", "revolution", "satisfaction", "schedule", "scientific", "significant", "solution", "specific", "status"], ["strategy", "structure", "substantial", "survey", "technical", "technology", "tension", "theory", "tradition", "transformation", "transition", "trend", "ultimately", "unique", "urban", "variation", "vision", "voluntary", "welfare", "widespread"], ["abandon", "ability", "absence", "absorb", "access", "accompany", "achieve", "acknowledge", "acquire", "adaptation", "adequate", "adjust", "administration", "advantage", "advocate", "agency", "agent", "aim", "alternative", "analyse"], ["announce", "anxiety", "apparently", "argument", "aspect", "assess", "assist", "assistance", "assume", "atmosphere", "attempt", "attitude", "authority", "available", "average", "basis", "benefit", "bond", "border", "broad"], ["burden", "capable", "capital", "career", "category", "challenge", "characteristic", "circumstance", "claim", "combination", "commit", "communication", "community", "compare", "competition", "complex", "concentrate", "concept", "conclude", "confident"], ["confirm", "conflict", "consequence", "consider", "considerable", "consist", "construct", "contact", "content", "contribute", "controversial", "convince", "criticism", "current", "database", "debate", "define", "deliver", "demonstrate", "depend"], ["depression", "design", "despite", "determination", "distribute", "diversity", "document", "domestic", "dominant", "drama", "dramatic", "economy", "editor", "educated", "effective", "efficient", "element", "emotion", "emphasis", "encourage"], ["energy", "enormous", "enterprise", "environment", "estimate", "evidence", "evolution", "examination", "exception", "exhibition", "expand", "expectation", "expedition", "expert", "extreme", "facility", "factor", "failure", "feature", "federal"], ["fiction", "financial", "finding", "focus", "formal", "framework", "freedom", "fundamental", "furthermore", "generation", "genuine", "global", "goal", "grant", "guarantee", "guidance", "ideal", "identify", "impact", "implementation"], ["income", "individual", "influence", "institution", "integration", "intelligence", "intention", "interaction", "investment", "issue", "judgment", "justify", "labor", "leadership", "legislation", "locate", "logical", "maintain", "majority", "management"], ["mechanism", "minor", "mission", "moderate", "motivation", "mutual", "negotiate", "network", "neutral", "nuclear", "objective", "observation", "obtain", "operate", "opportunity", "outcome", "overcome", "overview", "participant", "percentage"], ["perspective", "phase", "phenomenon", "policy", "poverty", "prediction", "principle", "priority", "process", "professional", "profit", "progress", "promote", "proportion", "psychological", "publication", "reaction", "recognize", "recommendation", "regulation"], ["relationship", "relevant", "represent", "requirement", "research", "resolution", "resource", "response", "responsibility", "restriction", "retain", "reveal", "revolution", "satisfaction", "schedule", "scientific", "significant", "solution", "specific", "status"], ["strategy", "structure", "substantial", "survey", "technical", "technology", "tension", "theory", "tradition", "transformation", "transition", "trend", "ultimately", "unique", "urban", "variation", "vision", "voluntary", "welfare", "widespread"], ["abandon", "ability", "absence", "absorb", "access", "accompany", "achieve", "acknowledge", "acquire", "adaptation", "adequate", "adjust", "administration", "advantage", "advocate", "agency", "agent", "aim", "alternative", "analyse"], ["announce", "anxiety", "apparently", "argument", "aspect", "assess", "assist", "assistance", "assume", "atmosphere", "attempt", "attitude", "authority", "available", "average", "basis", "benefit", "bond", "border", "broad"], ["burden", "capable", "capital", "career", "category", "challenge", "characteristic", "circumstance", "claim", "combination", "commit", "communication", "community", "compare", "competition", "complex", "concentrate", "concept", "conclude", "confident"], ["confirm", "conflict", "consequence", "consider", "considerable", "consist", "construct", "contact", "content", "contribute", "controversial", "convince", "criticism", "current", "database", "debate", "define", "deliver", "demonstrate", "depend"], ["depression", "design", "despite", "determination", "distribute", "diversity", "document", "domestic", "dominant", "drama", "dramatic", "economy", "editor", "educated", "effective", "efficient", "element", "emotion", "emphasis", "encourage"], ["energy", "enormous", "enterprise", "environment", "estimate", "evidence", "evolution", "examination", "exception", "exhibition", "expand", "expectation", "expedition", "expert", "extreme", "facility", "factor", "failure", "feature", "federal"], ["fiction", "financial", "finding", "focus", "formal", "framework", "freedom", "fundamental", "furthermore", "generation", "genuine", "global", "goal", "grant", "guarantee", "guidance", "ideal", "identify", "impact", "implementation"], ["income", "individual", "influence", "institution", "integration", "intelligence", "intention", "interaction", "investment", "issue", "judgment", "justify", "labor", "leadership", "legislation", "locate", "logical", "maintain", "majority", "management"], ["mechanism", "minor", "mission", "moderate", "motivation", "mutual", "negotiate", "network", "neutral", "nuclear", "objective", "observation", "obtain", "operate", "opportunity", "outcome", "overcome", "overview", "participant", "percentage"], ["perspective", "phase", "phenomenon", "policy", "poverty", "prediction", "principle", "priority", "process", "professional", "profit", "progress", "promote", "proportion", "psychological", "publication", "reaction", "recognize", "recommendation", "regulation"], ["relationship", "relevant", "represent", "requirement", "research", "resolution", "resource", "response", "responsibility", "restriction", "retain", "reveal", "revolution", "satisfaction", "schedule", "scientific", "significant", "solution", "specific", "status"], ["strategy", "structure", "substantial", "survey", "technical", "technology", "tension", "theory", "tradition", "transformation", "transition", "trend", "ultimately", "unique", "urban", "variation", "vision", "voluntary", "welfare", "widespread"], ["abandon", "ability", "absence", "absorb", "access", "accompany", "achieve", "acknowledge", "acquire", "adaptation", "adequate", "adjust", "administration", "advantage", "advocate", "agency", "agent", "aim", "alternative", "analyse"], ["announce", "anxiety", "apparently", "argument", "aspect", "assess", "assist", "assistance", "assume", "atmosphere", "attempt", "attitude", "authority", "available", "average", "basis", "benefit", "bond", "border", "broad"]];
+
+            var UNITS_B2 = [["abstract", "accessible", "accountability", "accumulate", "accuracy", "acquisition", "alignment", "allocation", "ambiguous", "analogous", "analytical", "anticipate", "apparent", "approximate", "arbitrary", "articulate", "assertion", "attribute", "audit", "autonomous"], ["benchmark", "bias", "breach", "capacity", "catalyst", "coherent", "compensate", "compliance", "comprehensive", "conceptual", "consequence", "consolidate", "contextual", "contradiction", "conventional", "coordinate", "correlation", "critique", "cumulative", "deduction"], ["deliberate", "derive", "distinction", "divergent", "dynamic", "elaborate", "empirical", "encompass", "enhance", "equivalent", "ethical", "evaluate", "evolve", "explicit", "exploit", "facilitate", "flexibility", "fluctuate", "formulate", "fundamental"], ["generalize", "genuine", "hierarchy", "hypothesis", "implicit", "implication", "incentive", "inconsistent", "induce", "inevitable", "infrastructure", "inherent", "innovation", "insight", "integrity", "interpretation", "intervention", "justify", "legislative", "legitimacy"], ["linear", "manifest", "maximize", "methodology", "minimize", "modify", "monitor", "nominal", "notion", "nuance", "objective", "obligation", "optimal", "orientation", "paradigm", "parallel", "parameter", "perception", "persistent", "pragmatic"], ["preliminary", "presumption", "principle", "priority", "procedure", "proportion", "prospect", "rational", "reinforce", "relevant", "reliability", "resolution", "retain", "revenue", "rhetorical", "scenario", "scope", "scrutiny", "sequence", "simultaneous"], ["sophisticated", "speculation", "stimulus", "subordinate", "subsequent", "sustainable", "synthesis", "terminology", "transformation", "transparency", "underlying", "uniformity", "validity", "viable", "virtual", "ambivalent", "context", "credibility", "discourse", "diversity"], ["ethics", "justification", "mechanism", "perspective", "plausible", "premise", "rhetoric", "systematic", "transparent", "variable", "yield", "abstract", "accessible", "accountability", "accumulate", "accuracy", "acquisition", "alignment", "allocation", "ambiguous"], ["analogous", "analytical", "anticipate", "apparent", "approximate", "arbitrary", "articulate", "assertion", "attribute", "audit", "autonomous", "benchmark", "bias", "breach", "capacity", "catalyst", "coherent", "compensate", "compliance", "comprehensive"], ["conceptual", "consequence", "consolidate", "contextual", "contradiction", "conventional", "coordinate", "correlation", "critique", "cumulative", "deduction", "deliberate", "derive", "distinction", "divergent", "dynamic", "elaborate", "empirical", "encompass", "enhance"], ["equivalent", "ethical", "evaluate", "evolve", "explicit", "exploit", "facilitate", "flexibility", "fluctuate", "formulate", "fundamental", "generalize", "genuine", "hierarchy", "hypothesis", "implicit", "implication", "incentive", "inconsistent", "induce"], ["inevitable", "infrastructure", "inherent", "innovation", "insight", "integrity", "interpretation", "intervention", "justify", "legislative", "legitimacy", "linear", "manifest", "maximize", "methodology", "minimize", "modify", "monitor", "nominal", "notion"], ["nuance", "objective", "obligation", "optimal", "orientation", "paradigm", "parallel", "parameter", "perception", "persistent", "pragmatic", "preliminary", "presumption", "principle", "priority", "procedure", "proportion", "prospect", "rational", "reinforce"], ["relevant", "reliability", "resolution", "retain", "revenue", "rhetorical", "scenario", "scope", "scrutiny", "sequence", "simultaneous", "sophisticated", "speculation", "stimulus", "subordinate", "subsequent", "sustainable", "synthesis", "terminology", "transformation"], ["transparency", "underlying", "uniformity", "validity", "viable", "virtual", "ambivalent", "context", "credibility", "discourse", "diversity", "ethics", "justification", "mechanism", "perspective", "plausible", "premise", "rhetoric", "systematic", "transparent"], ["variable", "yield", "abstract", "accessible", "accountability", "accumulate", "accuracy", "acquisition", "alignment", "allocation", "ambiguous", "analogous", "analytical", "anticipate", "apparent", "approximate", "arbitrary", "articulate", "assertion", "attribute"], ["audit", "autonomous", "benchmark", "bias", "breach", "capacity", "catalyst", "coherent", "compensate", "compliance", "comprehensive", "conceptual", "consequence", "consolidate", "contextual", "contradiction", "conventional", "coordinate", "correlation", "critique"], ["cumulative", "deduction", "deliberate", "derive", "distinction", "divergent", "dynamic", "elaborate", "empirical", "encompass", "enhance", "equivalent", "ethical", "evaluate", "evolve", "explicit", "exploit", "facilitate", "flexibility", "fluctuate"], ["formulate", "fundamental", "generalize", "genuine", "hierarchy", "hypothesis", "implicit", "implication", "incentive", "inconsistent", "induce", "inevitable", "infrastructure", "inherent", "innovation", "insight", "integrity", "interpretation", "intervention", "justify"], ["legislative", "legitimacy", "linear", "manifest", "maximize", "methodology", "minimize", "modify", "monitor", "nominal", "notion", "nuance", "objective", "obligation", "optimal", "orientation", "paradigm", "parallel", "parameter", "perception"], ["persistent", "pragmatic", "preliminary", "presumption", "principle", "priority", "procedure", "proportion", "prospect", "rational", "reinforce", "relevant", "reliability", "resolution", "retain", "revenue", "rhetorical", "scenario", "scope", "scrutiny"], ["sequence", "simultaneous", "sophisticated", "speculation", "stimulus", "subordinate", "subsequent", "sustainable", "synthesis", "terminology", "transformation", "transparency", "underlying", "uniformity", "validity", "viable", "virtual", "ambivalent", "context", "credibility"], ["discourse", "diversity", "ethics", "justification", "mechanism", "perspective", "plausible", "premise", "rhetoric", "systematic", "transparent", "variable", "yield", "abstract", "accessible", "accountability", "accumulate", "accuracy", "acquisition", "alignment"], ["allocation", "ambiguous", "analogous", "analytical", "anticipate", "apparent", "approximate", "arbitrary", "articulate", "assertion", "attribute", "audit", "autonomous", "benchmark", "bias", "breach", "capacity", "catalyst", "coherent", "compensate"], ["compliance", "comprehensive", "conceptual", "consequence", "consolidate", "contextual", "contradiction", "conventional", "coordinate", "correlation", "critique", "cumulative", "deduction", "deliberate", "derive", "distinction", "divergent", "dynamic", "elaborate", "empirical"], ["encompass", "enhance", "equivalent", "ethical", "evaluate", "evolve", "explicit", "exploit", "facilitate", "flexibility", "fluctuate", "formulate", "fundamental", "generalize", "genuine", "hierarchy", "hypothesis", "implicit", "implication", "incentive"], ["inconsistent", "induce", "inevitable", "infrastructure", "inherent", "innovation", "insight", "integrity", "interpretation", "intervention", "justify", "legislative", "legitimacy", "linear", "manifest", "maximize", "methodology", "minimize", "modify", "monitor"], ["nominal", "notion", "nuance", "objective", "obligation", "optimal", "orientation", "paradigm", "parallel", "parameter", "perception", "persistent", "pragmatic", "preliminary", "presumption", "principle", "priority", "procedure", "proportion", "prospect"], ["rational", "reinforce", "relevant", "reliability", "resolution", "retain", "revenue", "rhetorical", "scenario", "scope", "scrutiny", "sequence", "simultaneous", "sophisticated", "speculation", "stimulus", "subordinate", "subsequent", "sustainable", "synthesis"], ["terminology", "transformation", "transparency", "underlying", "uniformity", "validity", "viable", "virtual", "ambivalent", "context", "credibility", "discourse", "diversity", "ethics", "justification", "mechanism", "perspective", "plausible", "premise", "rhetoric"], ["systematic", "transparent", "variable", "yield", "abstract", "accessible", "accountability", "accumulate", "accuracy", "acquisition", "alignment", "allocation", "ambiguous", "analogous", "analytical", "anticipate", "apparent", "approximate", "arbitrary", "articulate"], ["assertion", "attribute", "audit", "autonomous", "benchmark", "bias", "breach", "capacity", "catalyst", "coherent", "compensate", "compliance", "comprehensive", "conceptual", "consequence", "consolidate", "contextual", "contradiction", "conventional", "coordinate"], ["correlation", "critique", "cumulative", "deduction", "deliberate", "derive", "distinction", "divergent", "dynamic", "elaborate", "empirical", "encompass", "enhance", "equivalent", "ethical", "evaluate", "evolve", "explicit", "exploit", "facilitate"], ["flexibility", "fluctuate", "formulate", "fundamental", "generalize", "genuine", "hierarchy", "hypothesis", "implicit", "implication", "incentive", "inconsistent", "induce", "inevitable", "infrastructure", "inherent", "innovation", "insight", "integrity", "interpretation"], ["intervention", "justify", "legislative", "legitimacy", "linear", "manifest", "maximize", "methodology", "minimize", "modify", "monitor", "nominal", "notion", "nuance", "objective", "obligation", "optimal", "orientation", "paradigm", "parallel"], ["parameter", "perception", "persistent", "pragmatic", "preliminary", "presumption", "principle", "priority", "procedure", "proportion", "prospect", "rational", "reinforce", "relevant", "reliability", "resolution", "retain", "revenue", "rhetorical", "scenario"], ["scope", "scrutiny", "sequence", "simultaneous", "sophisticated", "speculation", "stimulus", "subordinate", "subsequent", "sustainable", "synthesis", "terminology", "transformation", "transparency", "underlying", "uniformity", "validity", "viable", "virtual", "ambivalent"], ["context", "credibility", "discourse", "diversity", "ethics", "justification", "mechanism", "perspective", "plausible", "premise", "rhetoric", "systematic", "transparent", "variable", "yield", "abstract", "accessible", "accountability", "accumulate", "accuracy"], ["acquisition", "alignment", "allocation", "ambiguous", "analogous", "analytical", "anticipate", "apparent", "approximate", "arbitrary", "articulate", "assertion", "attribute", "audit", "autonomous", "benchmark", "bias", "breach", "capacity", "catalyst"], ["coherent", "compensate", "compliance", "comprehensive", "conceptual", "consequence", "consolidate", "contextual", "contradiction", "conventional", "coordinate", "correlation", "critique", "cumulative", "deduction", "deliberate", "derive", "distinction", "divergent", "dynamic"], ["elaborate", "empirical", "encompass", "enhance", "equivalent", "ethical", "evaluate", "evolve", "explicit", "exploit", "facilitate", "flexibility", "fluctuate", "formulate", "fundamental", "generalize", "genuine", "hierarchy", "hypothesis", "implicit"], ["implication", "incentive", "inconsistent", "induce", "inevitable", "infrastructure", "inherent", "innovation", "insight", "integrity", "interpretation", "intervention", "justify", "legislative", "legitimacy", "linear", "manifest", "maximize", "methodology", "minimize"], ["modify", "monitor", "nominal", "notion", "nuance", "objective", "obligation", "optimal", "orientation", "paradigm", "parallel", "parameter", "perception", "persistent", "pragmatic", "preliminary", "presumption", "principle", "priority", "procedure"], ["proportion", "prospect", "rational", "reinforce", "relevant", "reliability", "resolution", "retain", "revenue", "rhetorical", "scenario", "scope", "scrutiny", "sequence", "simultaneous", "sophisticated", "speculation", "stimulus", "subordinate", "subsequent"], ["sustainable", "synthesis", "terminology", "transformation", "transparency", "underlying", "uniformity", "validity", "viable", "virtual", "ambivalent", "context", "credibility", "discourse", "diversity", "ethics", "justification", "mechanism", "perspective", "plausible"], ["premise", "rhetoric", "systematic", "transparent", "variable", "yield", "abstract", "accessible", "accountability", "accumulate", "accuracy", "acquisition", "alignment", "allocation", "ambiguous", "analogous", "analytical", "anticipate", "apparent", "approximate"], ["arbitrary", "articulate", "assertion", "attribute", "audit", "autonomous", "benchmark", "bias", "breach", "capacity", "catalyst", "coherent", "compensate", "compliance", "comprehensive", "conceptual", "consequence", "consolidate", "contextual", "contradiction"], ["conventional", "coordinate", "correlation", "critique", "cumulative", "deduction", "deliberate", "derive", "distinction", "divergent", "dynamic", "elaborate", "empirical", "encompass", "enhance", "equivalent", "ethical", "evaluate", "evolve", "explicit"], ["exploit", "facilitate", "flexibility", "fluctuate", "formulate", "fundamental", "generalize", "genuine", "hierarchy", "hypothesis", "implicit", "implication", "incentive", "inconsistent", "induce", "inevitable", "infrastructure", "inherent", "innovation", "insight"], ["integrity", "interpretation", "intervention", "justify", "legislative", "legitimacy", "linear", "manifest", "maximize", "methodology", "minimize", "modify", "monitor", "nominal", "notion", "nuance", "objective", "obligation", "optimal", "orientation"]];
+
+            var TR = { "a": "bir", "able": "yapabilmek", "about": "hakkında", "above": "yukarıda", "across": "karşısında", "act": "hareket etmek", "add": "eklemek", "after": "sonra", "again": "tekrar", "ago": "önce", "agree": "katılmak", "air": "hava", "all": "hepsi", "allow": "izin vermek", "already": "zaten", "also": "ayrıca", "always": "her zaman", "and": "ve", "animal": "hayvan", "another": "başka", "answer": "cevap", "any": "herhangi", "area": "alan", "around": "çevresinde", "art": "sanat", "as": "gibi", "ask": "sormak", "at": "de", "away": "uzakta", "baby": "bebek", "back": "geri", "bad": "kötü", "bag": "çanta", "ball": "top", "bank": "banka", "be": "olmak", "beautiful": "güzel", "because": "çünkü", "become": "olmak", "bed": "yatak", "before": "önce", "begin": "başlamak", "big": "büyük", "black": "siyah", "blood": "kan", "blue": "mavi", "book": "kitap", "born": "doğmak", "both": "ikisi de", "box": "kutu", "boy": "erkek çocuk", "break": "kırmak", "bring": "getirmek", "brother": "erkek kardeş", "brown": "kahverengi", "build": "inşa etmek", "bus": "otobüs", "but": "ama", "buy": "satın almak", "by": "tarafından", "call": "aramak", "can": "yapabilmek", "car": "araba", "carry": "taşımak", "cat": "kedi", "chair": "sandalye", "change": "değişmek", "check": "kontrol etmek", "child": "çocuk", "city": "şehir", "class": "sınıf", "clean": "temiz", "clear": "net", "close": "kapatmak", "clothes": "kıyafetler", "cold": "soğuk", "color": "renk", "come": "gelmek", "common": "yaygın", "cook": "pişirmek", "cost": "maliyet", "count": "saymak", "country": "ülke", "course": "ders", "cut": "kesmek", "dad": "baba", "day": "gün", "dead": "ölü", "different": "farklı", "difficult": "zor", "do": "yapmak", "dog": "köpek", "door": "kapı", "down": "aşağı", "draw": "çizmek", "dream": "rüya", "drive": "sürmek", "drop": "düşürmek", "each": "her biri", "early": "erken", "easy": "kolay", "eat": "yemek", "end": "son", "enjoy": "zevk almak", "enough": "yeterli", "enter": "girmek", "even": "bile", "evening": "akşam", "ever": "hiç", "every": "her", "face": "yüz", "fall": "düşmek", "family": "aile", "far": "uzak", "fast": "hızlı", "feel": "hissetmek", "few": "az", "find": "bulmak", "fine": "iyi", "fire": "ateş", "first": "ilk", "fish": "balık", "five": "beş", "fly": "uçmak", "food": "yiyecek", "four": "dört", "free": "özgür", "friend": "arkadaş", "from": "den", "front": "ön", "full": "dolu", "funny": "komik", "game": "oyun", "get": "almak", "girl": "kız", "give": "vermek", "go": "gitmek", "good": "iyi", "great": "harika", "green": "yeşil", "group": "grup", "grow": "büyümek", "hand": "el", "happy": "mutlu", "hard": "zor", "have": "sahip olmak", "head": "kafa", "hear": "duymak", "help": "yardım etmek", "here": "burada", "high": "yüksek", "home": "ev", "hope": "umut", "hot": "sıcak", "hour": "saat", "house": "ev", "how": "nasıl", "hundred": "yüz", "idea": "fikir", "if": "eğer", "in": "içinde", "into": "içine", "just": "sadece", "keep": "tutmak", "kind": "tür", "know": "bilmek", "land": "arazi", "large": "büyük", "last": "son", "late": "geç", "laugh": "gülmek", "learn": "öğrenmek", "leave": "ayrılmak", "left": "sol", "leg": "bacak", "let": "izin vermek", "life": "hayat", "light": "ışık", "like": "gibi", "listen": "dinlemek", "little": "küçük", "live": "yaşamak", "long": "uzun", "look": "bakmak", "lot": "çok", "love": "sevmek", "low": "düşük", "make": "yapmak", "man": "adam", "many": "çok", "market": "pazar", "maybe": "belki", "me": "beni", "meet": "buluşmak", "minute": "dakika", "money": "para", "month": "ay", "more": "daha fazla", "morning": "sabah", "most": "en çok", "move": "hareket etmek", "much": "çok", "music": "müzik", "my": "benim", "name": "isim", "near": "yakın", "need": "ihtiyaç duymak", "new": "yeni", "next": "sonraki", "nice": "güzel", "night": "gece", "no": "hayır", "north": "kuzey", "not": "değil", "now": "şimdi", "number": "sayı", "of": "nın", "off": "kapalı", "often": "sık sık", "old": "yaşlı", "on": "üzerinde", "open": "açmak", "or": "veya", "other": "diğer", "out": "dışarı", "over": "üzerinde", "own": "kendi", "page": "sayfa", "part": "parça", "people": "insanlar", "place": "yer", "plan": "plan", "play": "oynamak", "point": "nokta", "poor": "fakir", "put": "koymak", "read": "okumak", "red": "kırmızı", "right": "doğru", "road": "yol", "room": "oda", "run": "koşmak", "same": "aynı", "school": "okul", "sea": "deniz", "see": "görmek", "sell": "satmak", "send": "göndermek", "seven": "yedi", "short": "kısa", "show": "göstermek", "sing": "şarkı söylemek", "sister": "kız kardeş", "sit": "oturmak", "six": "altı", "sleep": "uyumak", "small": "küçük", "smile": "gülümsemek", "some": "bazı", "son": "oğul", "soon": "yakında", "sorry": "özür dilerim", "south": "güney", "speak": "konuşmak", "stand": "durmak", "start": "başlamak", "stay": "kalmak", "stop": "durmak", "story": "hikaye", "street": "sokak", "study": "çalışmak", "sun": "güneş", "swim": "yüzmek", "take": "almak", "talk": "konuşmak", "teacher": "öğretmen", "tell": "söylemek", "ten": "on", "the": "the", "then": "sonra", "thing": "şey", "think": "düşünmek", "three": "üç", "time": "zaman", "tired": "yorgun", "to": "e", "today": "bugün", "together": "birlikte", "too": "de", "top": "üst", "town": "kasaba", "try": "denemek", "turn": "dönmek", "two": "iki", "under": "altında", "up": "yukarı", "use": "kullanmak", "very": "çok", "walk": "yürümek", "want": "istemek", "water": "su", "way": "yol", "we": "biz", "week": "hafta", "well": "iyi", "west": "batı", "what": "ne", "when": "ne zaman", "where": "nerede", "which": "hangi", "white": "beyaz", "who": "kim", "why": "neden", "window": "pencere", "with": "ile", "woman": "kadın", "word": "kelime", "work": "çalışmak", "world": "dünya", "write": "yazmak", "year": "yıl", "yes": "evet", "yet": "henüz", "you": "sen", "young": "genç", "your": "senin", "accept": "kabul etmek", "accident": "kaza", "activity": "aktivite", "adult": "yetişkin", "advice": "tavsiye", "affect": "etkilemek", "afraid": "korkan", "age": "yaş", "ahead": "ileride", "almost": "neredeyse", "alone": "yalnız", "although": "her ne kadar", "amount": "miktar", "angry": "sinirli", "apply": "başvurmak", "arm": "kol", "arrive": "varmak", "attention": "dikkat", "audience": "izleyici", "basic": "temel", "behavior": "davranış", "believe": "inanmak", "belong": "ait olmak", "beside": "yanında", "between": "arasında", "bridge": "köprü", "bright": "parlak", "budget": "bütçe", "care": "özen göstermek", "catch": "yakalamak", "cause": "neden", "center": "merkez", "century": "yüzyıl", "certain": "belirli", "certainly": "kesinlikle", "character": "karakter", "choice": "seçim", "choose": "seçmek", "collect": "toplamak", "college": "üniversite", "comfort": "konfor", "complete": "tamamlamak", "computer": "bilgisayar", "concern": "endişe", "condition": "koşul", "connect": "bağlamak", "control": "kontrol", "correct": "doğru", "couple": "çift", "create": "oluşturmak", "culture": "kültür", "customer": "müşteri", "dark": "karanlık", "daughter": "kız evlat", "decide": "karar vermek", "deep": "derin", "describe": "tanımlamak", "develop": "geliştirmek", "difference": "fark", "dinner": "akşam yemeği", "direction": "yön", "discover": "keşfetmek", "discuss": "tartışmak", "either": "ya da", "else": "başka", "emotion": "duygu", "employee": "çalışan", "environment": "çevre", "event": "olay", "example": "örnek", "experience": "deneyim", "explain": "açıklamak", "fail": "başarısız olmak", "famous": "ünlü", "fight": "kavga", "fill": "doldurmak", "finish": "bitirmek", "fit": "uygun", "floor": "zemin", "follow": "takip etmek", "force": "güç", "foreign": "yabancı", "forget": "unutmak", "forward": "ileri", "found": "kurmak", "future": "gelecek", "general": "genel", "government": "hükümet", "guess": "tahmin etmek", "guest": "misafir", "hair": "saç", "half": "yarı", "happen": "olmak", "heavy": "ağır", "history": "tarih", "hit": "vurmak", "hold": "tutmak", "hospital": "hastane", "however": "ancak", "huge": "devasa", "human": "insan", "husband": "koca", "important": "önemli", "include": "dahil etmek", "inform": "bilgilendirmek", "instead": "yerine", "interest": "ilgi", "introduce": "tanıtmak", "job": "iş", "join": "katılmak", "journey": "yolculuk", "judge": "yargılamak", "kill": "öldürmek", "kitchen": "mutfak", "language": "dil", "later": "sonra", "law": "yasa", "lay": "koymak", "leader": "lider", "letter": "mektup", "likely": "muhtemelen", "limit": "sınır", "list": "liste", "lose": "kaybetmek", "magazine": "dergi", "manager": "yönetici", "marry": "evlenmek", "meal": "yemek", "measure": "ölçmek", "media": "medya", "member": "üye", "memory": "hafıza", "mention": "bahsetmek", "message": "mesaj", "method": "yöntem", "mind": "akıl", "miss": "özlemek", "modern": "modern", "moment": "an", "natural": "doğal", "nature": "doğa", "notice": "fark etmek", "offer": "teklif", "office": "ofis", "once": "bir kez", "order": "sipariş", "outside": "dışarıda", "parent": "ebeveyn", "particular": "özel", "party": "parti", "pass": "geçmek", "patient": "hasta", "pay": "ödemek", "perform": "yapmak", "period": "dönem", "person": "kişi", "phone": "telefon", "picture": "resim", "popular": "popüler", "position": "pozisyon", "practice": "pratik", "prepare": "hazırlanmak", "present": "sunmak", "private": "özel", "produce": "üretmek", "professor": "profesör", "program": "program", "protect": "korumak", "public": "halk", "push": "itmek", "quality": "kalite", "question": "soru", "quite": "oldukça", "race": "yarış", "raise": "yükseltmek", "reach": "ulaşmak", "realize": "fark etmek", "reason": "neden", "receive": "almak", "record": "kayıt", "remain": "kalmak", "remember": "hatırlamak", "repair": "tamir etmek", "require": "gerektirmek", "respect": "saygı", "rest": "dinlenmek", "result": "sonuç", "return": "dönmek", "rich": "zengin", "rise": "yükselmek", "risk": "risk", "rough": "kaba", "round": "yuvarlak", "rule": "kural", "safe": "güvenli", "scene": "sahne", "season": "mevsim", "section": "bölüm", "serve": "hizmet etmek", "service": "hizmet", "set": "ayarlamak", "several": "birkaç", "sign": "işaret", "since": "beri", "situation": "durum", "size": "boyut", "skill": "beceri", "skin": "cilt", "slow": "yavaş", "smart": "zeki", "society": "toplum", "sometimes": "bazen", "sort": "tür", "special": "özel", "spend": "harcamak", "stage": "sahne", "star": "yıldız", "statement": "açıklama", "subject": "konu", "support": "destek", "sure": "emin", "surprise": "sürpriz", "system": "sistem", "team": "takım", "term": "dönem", "thousand": "bin", "thought": "düşünce", "travel": "seyahat", "treat": "davranmak", "trip": "gezi", "trouble": "sorun", "true": "doğru", "trust": "güvenmek", "understand": "anlamak", "until": "kadar", "usual": "olağan", "value": "değer", "various": "çeşitli", "voice": "ses", "wall": "duvar", "weather": "hava durumu", "weight": "ağırlık", "wild": "vahşi", "wish": "dilemek", "worry": "endişelenmek", "zone": "bölge", "abandon": "terk etmek", "ability": "yetenek", "absence": "yokluk", "absorb": "emmek", "access": "erişim", "accompany": "eşlik etmek", "achieve": "başarmak", "acknowledge": "kabul etmek", "acquire": "edinmek", "adaptation": "uyum", "adequate": "yeterli", "adjust": "ayarlamak", "administration": "yönetim", "advantage": "avantaj", "advocate": "savunmak", "agency": "ajans", "agent": "ajan", "aim": "hedeflemek", "alternative": "alternatif", "analyse": "analiz etmek", "announce": "duyurmak", "anxiety": "kaygı", "apparently": "görünüşe göre", "argument": "tartışma", "aspect": "yön", "assess": "değerlendirmek", "assist": "yardım etmek", "assistance": "yardım", "assume": "varsaymak", "atmosphere": "atmosfer", "attempt": "girişim", "attitude": "tutum", "authority": "otorite", "available": "mevcut", "average": "ortalama", "basis": "temel", "benefit": "yarar", "bond": "bağ", "border": "sınır", "broad": "geniş", "burden": "yük", "capable": "yetenekli", "capital": "başkent", "career": "kariyer", "category": "kategori", "challenge": "zorluk", "characteristic": "özellik", "circumstance": "koşul", "claim": "iddia", "combination": "kombinasyon", "commit": "taahhüt etmek", "communication": "iletişim", "community": "topluluk", "compare": "karşılaştırmak", "competition": "rekabet", "complex": "karmaşık", "concentrate": "konsantre olmak", "concept": "kavram", "conclude": "sonuçlandırmak", "confident": "güvenli", "confirm": "onaylamak", "conflict": "çatışma", "consequence": "sonuç", "consider": "düşünmek", "considerable": "önemli", "consist": "oluşmak", "construct": "inşa etmek", "contact": "iletişim", "content": "içerik", "contribute": "katkıda bulunmak", "controversial": "tartışmalı", "convince": "ikna etmek", "criticism": "eleştiri", "current": "mevcut", "database": "veri tabanı", "debate": "tartışma", "define": "tanımlamak", "deliver": "teslim etmek", "demonstrate": "göstermek", "depend": "bağlı olmak", "depression": "depresyon", "design": "tasarım", "despite": "rağmen", "determination": "kararlılık", "distribute": "dağıtmak", "diversity": "çeşitlilik", "document": "belge", "domestic": "iç", "dominant": "baskın", "drama": "drama", "dramatic": "dramatik", "economy": "ekonomi", "editor": "editör", "educated": "eğitimli", "effective": "etkili", "efficient": "verimli", "element": "unsur", "emphasis": "vurgu", "encourage": "teşvik etmek", "energy": "enerji", "enormous": "devasa", "enterprise": "girişim", "estimate": "tahmin etmek", "evidence": "kanıt", "evolution": "evrim", "examination": "sınav", "exception": "istisna", "exhibition": "sergi", "expand": "genişlemek", "expectation": "beklenti", "expedition": "sefer", "expert": "uzman", "extreme": "aşırı", "facility": "tesis", "factor": "faktör", "failure": "başarısızlık", "feature": "özellik", "federal": "federal", "fiction": "kurgu", "financial": "mali", "finding": "bulgu", "focus": "odaklanmak", "formal": "resmi", "framework": "çerçeve", "freedom": "özgürlük", "fundamental": "temel", "furthermore": "ayrıca", "generation": "nesil", "genuine": "gerçek", "global": "küresel", "goal": "hedef", "grant": "vermek", "guarantee": "garanti", "guidance": "rehberlik", "ideal": "ideal", "identify": "tanımlamak", "impact": "etki", "implementation": "uygulama", "income": "gelir", "individual": "bireysel", "influence": "etki", "institution": "kurum", "integration": "entegrasyon", "intelligence": "zeka", "intention": "niyet", "interaction": "etkileşim", "investment": "yatırım", "issue": "sorun", "judgment": "yargı", "justify": "haklı çıkarmak", "labor": "emek", "leadership": "liderlik", "legislation": "mevzuat", "locate": "bulmak", "logical": "mantıklı", "maintain": "sürdürmek", "majority": "çoğunluk", "management": "yönetim", "mechanism": "mekanizma", "minor": "küçük", "mission": "görev", "moderate": "ılımlı", "motivation": "motivasyon", "mutual": "karşılıklı", "negotiate": "müzakere etmek", "network": "ağ", "neutral": "tarafsız", "nuclear": "nükleer", "objective": "amaç", "observation": "gözlem", "obtain": "elde etmek", "operate": "çalışmak", "opportunity": "fırsat", "outcome": "sonuç", "overcome": "üstesinden gelmek", "overview": "genel bakış", "participant": "katılımcı", "percentage": "yüzde", "perspective": "bakış açısı", "phase": "aşama", "phenomenon": "olgu", "policy": "politika", "poverty": "yoksulluk", "prediction": "tahmin", "principle": "ilke", "priority": "öncelik", "process": "süreç", "professional": "profesyonel", "profit": "kâr", "progress": "ilerleme", "promote": "teşvik etmek", "proportion": "oran", "psychological": "psikolojik", "publication": "yayın", "reaction": "tepki", "recognize": "tanımak", "recommendation": "öneri", "regulation": "düzenleme", "relationship": "ilişki", "relevant": "ilgili", "represent": "temsil etmek", "requirement": "gereksinim", "research": "araştırma", "resolution": "çözüm", "resource": "kaynak", "response": "yanıt", "responsibility": "sorumluluk", "restriction": "kısıtlama", "retain": "tutmak", "reveal": "ortaya çıkarmak", "revolution": "devrim", "satisfaction": "memnuniyet", "schedule": "program", "scientific": "bilimsel", "significant": "önemli", "solution": "çözüm", "specific": "özgül", "status": "durum", "strategy": "strateji", "structure": "yapı", "substantial": "önemli", "survey": "anket", "technical": "teknik", "technology": "teknoloji", "tension": "gerilim", "theory": "teori", "tradition": "gelenek", "transformation": "dönüşüm", "transition": "geçiş", "trend": "eğilim", "ultimately": "nihayetinde", "unique": "eşsiz", "urban": "kentsel", "variation": "değişim", "vision": "vizyon", "voluntary": "gönüllü", "welfare": "refah", "widespread": "yaygın", "abstract": "soyut", "accessible": "erişilebilir", "accountability": "hesap verebilirlik", "accumulate": "biriktirmek", "accuracy": "doğruluk", "acquisition": "edinim", "alignment": "hizalama", "allocation": "tahsis", "ambiguous": "belirsiz", "analogous": "benzer", "analytical": "analitik", "anticipate": "öngörmek", "apparent": "görünür", "approximate": "yaklaşık", "arbitrary": "keyfi", "articulate": "net ifade etmek", "assertion": "iddia", "attribute": "özellik", "audit": "denetim", "autonomous": "özerk", "benchmark": "kıyaslama", "bias": "önyargı", "breach": "ihlal", "capacity": "kapasite", "catalyst": "katalizör", "coherent": "tutarlı", "compensate": "telafi etmek", "compliance": "uyum", "comprehensive": "kapsamlı", "conceptual": "kavramsal", "consolidate": "pekiştirmek", "contextual": "bağlamsal", "contradiction": "çelişki", "conventional": "geleneksel", "coordinate": "koordine etmek", "correlation": "korelasyon", "critique": "eleştiri", "cumulative": "kümülatif", "deduction": "çıkarım", "deliberate": "kasıtlı", "derive": "türetmek", "distinction": "ayrım", "divergent": "ayrışan", "dynamic": "dinamik", "elaborate": "ayrıntılı", "empirical": "ampirik", "encompass": "kapsamak", "enhance": "geliştirmek", "equivalent": "eşdeğer", "ethical": "etik", "evaluate": "değerlendirmek", "evolve": "evrimleşmek", "explicit": "açık", "exploit": "sömürmek", "facilitate": "kolaylaştırmak", "flexibility": "esneklik", "fluctuate": "dalgalanmak", "formulate": "formüle etmek", "generalize": "genellemek", "hierarchy": "hiyerarşi", "hypothesis": "hipotez", "implicit": "örtük", "implication": "sonuç", "incentive": "teşvik", "inconsistent": "tutarsız", "induce": "yol açmak", "inevitable": "kaçınılmaz", "infrastructure": "altyapı", "inherent": "doğasında olan", "innovation": "inovasyon", "insight": "içgörü", "integrity": "dürüstlük", "interpretation": "yorum", "intervention": "müdahale", "legislative": "yasal", "legitimacy": "meşruiyet", "linear": "doğrusal", "manifest": "ortaya çıkmak", "maximize": "maksimize etmek", "methodology": "metodoloji", "minimize": "minimize etmek", "modify": "değiştirmek", "monitor": "izlemek", "nominal": "nominal", "notion": "kavram", "nuance": "nüans", "obligation": "yükümlülük", "optimal": "optimal", "orientation": "yönelim", "paradigm": "paradigma", "parallel": "paralel", "parameter": "parametre", "perception": "algı", "persistent": "ısrarcı", "pragmatic": "pragmatik", "preliminary": "ön", "presumption": "varsayım", "procedure": "prosedür", "prospect": "umut", "rational": "rasyonel", "reinforce": "pekiştirmek", "reliability": "güvenilirlik", "revenue": "gelir", "rhetorical": "retorik", "scenario": "senaryo", "scope": "kapsam", "scrutiny": "inceleme", "sequence": "dizi", "simultaneous": "eş zamanlı", "sophisticated": "sofistike", "speculation": "spekülasyon", "stimulus": "uyarıcı", "subordinate": "alt", "subsequent": "sonraki", "sustainable": "sürdürülebilir", "synthesis": "sentez", "terminology": "terminoloji", "transparency": "şeffaflık", "underlying": "temel", "uniformity": "tekdüzelik", "validity": "geçerlilik", "viable": "uygulanabilir", "virtual": "sanal", "ambivalent": "ikircikli", "context": "bağlam", "credibility": "güvenilirlik", "discourse": "söylem", "ethics": "etik", "justification": "gerekçe", "plausible": "makul", "premise": "öncül", "rhetoric": "retorik", "systematic": "sistematik", "transparent": "şeffaf", "variable": "değişken", "yield": "getiri", "clearly": "açıkça", "drug": "ilaç" };
+
+
+            // ── DATA: OKUMA (TEMEL METİNLER) ───────────────────────────────────────────────
+            var BASE_READING = {
+                a1: [
+                    {
+                        title: "A Day at School",
+                        text: "I go to school every day. My teacher is very good. I read a book in class. I have many friends at school. We play ball together.",
+                        qs: [
+                            { q: "Öğrenci sınıfta ne yapıyor?", opts: ["Kitap okuyor", "Top oynuyor", "Uyuyor", "Yemek yiyor"], ans: "Kitap okuyor" },
+                            { q: "Öğretmeni nasıl biri?", opts: ["Çok iyi", "Çok kötü", "Kızgın", "Yaşlı"], ans: "Çok iyi" }
+                        ]
+                    },
+                    {
+                        title: "My Family",
+                        text: "Hello! My name is Ali. I live in a big house with my family. I have a mother, a father, and two sisters. We have a small dog. We love our dog very much.",
+                        qs: [
+                            { q: "Ali nerede yaşıyor?", opts: ["Büyük bir evde", "Küçük bir evde", "Okulda", "Arabada"], ans: "Büyük bir evde" },
+                            { q: "Ali'nin kaç kız kardeşi var?", opts: ["İki", "Bir", "Üç", "Yok"], ans: "İki" }
+                        ]
+                    },
+                    {
+                        title: "My City",
+                        text: "I live in a beautiful city. There is a big bank and a market. I walk around the city with my bag. The air is always clean.",
+                        qs: [
+                            { q: "Şehirde ne var?", opts: ["Büyük bir banka", "Küçük bir okul", "Büyük bir orman", "Deniz"], ans: "Büyük bir banka" },
+                            { q: "Hava her zaman nasıldır?", opts: ["Temiz", "Soğuk", "Sıcak", "Kirli"], ans: "Temiz" }
+                        ]
+                    },
+                    {
+                        title: "Morning Routine",
+                        text: "I wake up early in the morning. I eat a good breakfast. I drink water and eat an apple. Then I take the bus to work.",
+                        qs: [
+                            { q: "Kahvaltıda ne yer?", opts: ["Elma", "Ekmek", "Balık", "Peynir"], ans: "Elma" },
+                            { q: "İşe nasıl gider?", opts: ["Otobüsle", "Yürüyerek", "Arabayla", "Bisikletle"], ans: "Otobüsle" }
+                        ]
+                    },
+                    {
+                        title: "My Pets",
+                        text: "I have a cat and a dog. My cat is small and white. My dog is big and brown. They play in the garden every day.",
+                        qs: [
+                            { q: "Kedi nasıldır?", opts: ["Küçük ve beyaz", "Büyük ve siyah", "Büyük ve kahverengi", "Küçük ve sarı"], ans: "Küçük ve beyaz" },
+                            { q: "Hayvanlar nerede oynar?", opts: ["Bahçede", "Evde", "Sokakta", "Parkta"], ans: "Bahçede" }
+                        ]
+                    }
+                ],
+                a2: [
+                    {
+                        title: "My Job in the Office",
+                        text: "I work in a modern office. I am a manager. I use a computer every day to complete my tasks. My job is important because I organize the budget.",
+                        qs: [
+                            { q: "Kişinin mesleği nedir?", opts: ["Yönetici", "Öğretmen", "Doktor", "Öğrenci"], ans: "Yönetici" },
+                            { q: "İşi neden önemli?", opts: ["Bütçeyi organize ettiği için", "Çok para kazandığı için", "İnsanlarla tanıştığı için", "Eğlenceli olduğu için"], ans: "Bütçeyi organize ettiği için" }
+                        ]
+                    },
+                    {
+                        title: "A Healthy Lifestyle",
+                        text: "You need to eat healthy food and sleep well. Exercise is basic for your body and behavior. It gives you positive emotion.",
+                        qs: [
+                            { q: "Sağlıklı olmak için ne yapmak gerekir?", opts: ["Sağlıklı beslenmek ve iyi uyumak", "Çok çalışmak", "Televizyon izlemek", "Sürekli oturmak"], ans: "Sağlıklı beslenmek ve iyi uyumak" },
+                            { q: "Egzersiz ne sağlar?", opts: ["Pozitif duygu", "Yorgunluk", "Stres", "Açlık"], ans: "Pozitif duygu" }
+                        ]
+                    },
+                    {
+                        title: "Weekend Trip",
+                        text: "Last weekend, I went on a trip with my friends. We drove a car to the mountain. We took many beautiful pictures. It was a great experience.",
+                        qs: [
+                            { q: "Nereye gittiler?", opts: ["Dağa", "Denize", "Ormana", "Şehre"], ans: "Dağa" },
+                            { q: "Orada ne yaptılar?", opts: ["Resim çektiler", "Yüzdüler", "Uyudular", "Alışveriş yaptılar"], ans: "Resim çektiler" }
+                        ]
+                    },
+                    {
+                        title: "Shopping Day",
+                        text: "Today I want to buy new clothes. I need a warm jacket because the weather is cold. I will also buy a nice gift for my mother.",
+                        qs: [
+                            { q: "Neden kalın bir cekete ihtiyacı var?", opts: ["Hava soğuk olduğu için", "Moda olduğu için", "Eskisi yırtıldığı için", "İndirimde olduğu için"], ans: "Hava soğuk olduğu için" },
+                            { q: "Kime hediye alacak?", opts: ["Annesine", "Arkadaşına", "Kardeşine", "Babasına"], ans: "Annesine" }
+                        ]
+                    },
+                    {
+                        title: "Favorite Hobby",
+                        text: "My favorite hobby is playing the guitar. I practice every evening in my room. Music helps me to relax and forget my daily trouble.",
+                        qs: [
+                            { q: "En sevdiği hobi nedir?", opts: ["Gitar çalmak", "Kitap okumak", "Şarkı söylemek", "Resim yapmak"], ans: "Gitar çalmak" },
+                            { q: "Müzik ona nasıl yardımcı olur?", opts: ["Rahatlamasına", "Uyumasına", "Para kazanmasına", "Ders çalışmasına"], ans: "Rahatlamasına" }
+                        ]
+                    }
+                ],
+                b1: [
+                    {
+                        title: "Protecting The Environment",
+                        text: "Global warming is a serious issue. We must protect our environment. Pollution affects animals and humans. It is our responsibility to achieve a sustainable future.",
+                        qs: [
+                            { q: "Metne göre ciddi sorun nedir?", opts: ["Küresel ısınma", "Ekonomi", "Eğitim", "Teknoloji"], ans: "Küresel ısınma" },
+                            { q: "Neyi başarmak bizim sorumluluğumuzdadır?", opts: ["Sürdürülebilir bir geleceği", "Çok para kazanmayı", "Yeni evler yapmayı", "Ormanları kesmeyi"], ans: "Sürdürülebilir bir geleceği" }
+                        ]
+                    },
+                    {
+                        title: "Technology and Communication",
+                        text: "The internet has changed communication globally. People can share information and analyse data easily. It has an enormous advantage for modern administration.",
+                        qs: [
+                            { q: "İnternet neyi değiştirdi?", opts: ["İletişimi", "Yemekleri", "Hava durumunu", "Kıyafetleri"], ans: "İletişimi" },
+                            { q: "İnternetin modern yönetim için nesi vardır?", opts: ["Büyük bir avantajı", "Zararı", "Zorluğu", "Pahalı olması"], ans: "Büyük bir avantajı" }
+                        ]
+                    },
+                    {
+                        title: "Travel Experience",
+                        text: "Traveling allows individuals to discover different cultures. During an expedition, you can observe unique traditions. This expands your mental framework and perspective.",
+                        qs: [
+                            { q: "Seyahat etmek neye olanak tanır?", opts: ["Farklı kültürleri keşfetmeye", "Sadece dinlenmeye", "Para harcamaya", "Evde kalmaya"], ans: "Farklı kültürleri keşfetmeye" },
+                            { q: "Seyahat etmek neyi genişletir?", opts: ["Bakış açısını", "Evi", "Maliyeti", "Sorunları"], ans: "Bakış açısını" }
+                        ]
+                    },
+                    {
+                        title: "Education System",
+                        text: "A successful education system encourages analytical thinking. Students should not only memorize but also participate in debates to justify their arguments.",
+                        qs: [
+                            { q: "Başarılı bir eğitim sistemi neyi teşvik eder?", opts: ["Analitik düşünmeyi", "Sadece ezberlemeyi", "Susmayı", "Sınav stresini"], ans: "Analitik düşünmeyi" },
+                            { q: "Öğrenciler argümanlarını savunmak için ne yapmalıdır?", opts: ["Tartışmalara katılmalıdır", "Sadece dinlemelidir", "Kitap okumalıdır", "Ödev yapmalıdır"], ans: "Tartışmalara katılmalıdır" }
+                        ]
+                    },
+                    {
+                        title: "Social Media Usage",
+                        text: "Social media has a dramatic impact on society. It can create networks and positive interactions. However, excessive use might lead to anxiety and isolation.",
+                        qs: [
+                            { q: "Sosyal medya ne yaratabilir?", opts: ["Ağlar ve pozitif etkileşimler", "Sadece zaman kaybı", "Fiziksel güç", "Sınav başarısı"], ans: "Ağlar ve pozitif etkileşimler" },
+                            { q: "Aşırı kullanım neye yol açabilir?", opts: ["Kaygı ve izolasyona", "Mutluluğa", "Zenginliğe", "Sağlığa"], ans: "Kaygı ve izolasyona" }
+                        ]
+                    }
+                ],
+                b2: [
+                    {
+                        title: "The Impact of Artificial Intelligence",
+                        text: "AI has the capacity to transform industries. However, ethical implications and arbitrary decisions remain ambiguous. We must evaluate its impact comprehensively.",
+                        qs: [
+                            { q: "Yapay zekanın neyi dönüştürme kapasitesi vardır?", opts: ["Endüstrileri", "Okulları", "Tarihi", "Coğrafyayı"], ans: "Endüstrileri" },
+                            { q: "Hangi konular hala belirsizdir?", opts: ["Etik sonuçlar ve keyfi kararlar", "Sadece ekonomik veriler", "Fiyatlandırma politikası", "Donanım sorunları"], ans: "Etik sonuçlar ve keyfi kararlar" }
+                        ]
+                    },
+                    {
+                        title: "Economic Fluctuations",
+                        text: "Fluctuations in the global market affect domestic revenue. Sustainable infrastructure is fundamental for growth and to compensate for sudden losses.",
+                        qs: [
+                            { q: "Küresel pazardaki dalgalanmalar neyi etkiler?", opts: ["İç geliri", "Hava durumunu", "Nüfusu", "Kültürü"], ans: "İç geliri" },
+                            { q: "Büyüme için temel olan nedir?", opts: ["Sürdürülebilir altyapı", "Yüksek fiyatlar", "Pazarlama stratejisi", "Yeni şirketler"], ans: "Sürdürülebilir altyapı" }
+                        ]
+                    },
+                    {
+                        title: "Climate Change Mitigation",
+                        text: "To mitigate climate change, a systematic paradigm shift is inevitable. Governments must allocate resources to enhance renewable energy and minimize carbon emissions.",
+                        qs: [
+                            { q: "İklim değişikliğini hafifletmek için ne kaçınılmazdır?", opts: ["Sistematik bir paradigma değişimi", "Küçük düzenlemeler", "Daha çok fosil yakıt", "Hiçbir şey yapmamak"], ans: "Sistematik bir paradigma değişimi" },
+                            { q: "Hükümetler kaynakları ne için tahsis etmelidir?", opts: ["Yenilenebilir enerjiyi geliştirmek için", "Savaşa hazırlık için", "Daha fazla yol yapmak için", "Vergileri artırmak için"], ans: "Yenilenebilir enerjiyi geliştirmek için" }
+                        ]
+                    },
+                    {
+                        title: "Cultural Diversity",
+                        text: "Diversity in a corporate context acts as a catalyst for innovation. A divergent workforce brings unique perspectives, eliminating conventional biases and reinforcing comprehensive problem-solving.",
+                        qs: [
+                            { q: "Kurumsal bağlamda çeşitlilik ne işlevi görür?", opts: ["İnovasyon için bir katalizör", "Bir zaman kaybı", "Finansal bir yük", "İletişim engeli"], ans: "İnovasyon için bir katalizör" },
+                            { q: "Farklılıklara sahip bir iş gücü neyi ortadan kaldırır?", opts: ["Geleneksel önyargıları", "Yaratıcılığı", "Kurumsal yapıyı", "Teknolojik gelişimi"], ans: "Geleneksel önyargıları" }
+                        ]
+                    },
+                    {
+                        title: "Space Exploration",
+                        text: "Space exploration requires immense capital and autonomous technological systems. While the prospect of discovering new habitats is appealing, the empirical data remains preliminary and speculative.",
+                        qs: [
+                            { q: "Uzay araştırmaları ne gerektirir?", opts: ["Büyük sermaye ve özerk sistemler", "Sadece insan gücü", "Geleneksel araçlar", "Kısa bir eğitim"], ans: "Büyük sermaye ve özerk sistemler" },
+                            { q: "Yeni yaşam alanları keşfetme fikri çekici olsa da, veriler nasıldır?", opts: ["Ön hazırlık aşamasında ve spekülatif", "Kesin ve kanıtlanmış", "Tamamen yanlış", "Herkes tarafından bilinen"], ans: "Ön hazırlık aşamasında ve spekülatif" }
+                        ]
+                    }
+                ]
+            };
+
+            // Okuma listelerini 50'şer derse tamamlayan sistem
+            var READING_DATA = { a1: [], a2: [], b1: [], b2: [] };
+            ["a1", "a2", "b1", "b2"].forEach(function (lvl) {
+                for (var i = 0; i < 50; i++) {
+                    var baseItem = BASE_READING[lvl][i % BASE_READING[lvl].length];
+                    READING_DATA[lvl].push({
+                        title: baseItem.title + " (Bölüm " + (i + 1) + ")",
+                        text: baseItem.text,
+                        qs: baseItem.qs
+                    });
+                }
+            });
+
+
+            var BASE_WRITING = {
+                a1: [
+                    { q: "Benim adım Ali.", ans: "My name is Ali." },
+                    { q: "Ben bir elma yerim.", ans: "I eat an apple." },
+                    { q: "O bir doktordur.", ans: "He is a doctor." },
+                    { q: "Ev büyük.", ans: "The house is big." },
+                    { q: "Benim kedim var.", ans: "I have a cat." }
+                ],
+                a2: [
+                    { q: "Dün sinemaya gittim.", ans: "I went to the cinema yesterday." },
+                    { q: "O çok hızlı koşabilir.", ans: "He can run very fast." },
+                    { q: "Kitap okumayı severim.", ans: "I like reading books." },
+                    { q: "Hafta sonu ne yaptın?", ans: "What did you do at the weekend?" },
+                    { q: "Yarın yağmur yağacak.", ans: "It will rain tomorrow." }
+                ],
+                b1: [
+                    { q: "Eğer yağmur yağarsa evde kalacağım.", ans: "If it rains I will stay at home." },
+                    { q: "Bana yardım edebilecek misin?", ans: "Will you be able to help me?" },
+                    { q: "Bunu yapmamalısın.", ans: "You should not do this." },
+                    { q: "Daha çok çalışman gerekiyor.", ans: "You need to work harder." },
+                    { q: "O, benim en iyi arkadaşımdır.", ans: "He is my best friend." }
+                ],
+                b2: [
+                    { q: "Küresel ısınma ciddi bir sorundur.", ans: "Global warming is a serious issue." },
+                    { q: "Sürdürülebilir kalkınma çok önemlidir.", ans: "Sustainable development is very important." },
+                    { q: "Teknoloji hızla gelişiyor.", ans: "Technology is developing rapidly." },
+                    { q: "Bana bu konuyu açıklayabilir misiniz?", ans: "Could you explain this topic to me?" },
+                    { q: "Etik kurallara uyulmalıdır.", ans: "Ethical rules must be followed." }
+                ]
+            };
+
+            var BASE_LISTENING = {
+                a1: [
+                    { audio: "Hello, how are you?", opts: ["Merhaba, nasılsın?", "Güle güle.", "Nasılsın?", "Günaydın."], ans: "Merhaba, nasılsın?" },
+                    { audio: "I like apples.", opts: ["Elmaları severim.", "Ben bir elmayım.", "Elma sevmem.", "Muz severim."], ans: "Elmaları severim." },
+                    { audio: "Where is the station?", opts: ["İstasyon nerede?", "Otobüs nerede?", "Tren nerede?", "Okul nerede?"], ans: "İstasyon nerede?" },
+                    { audio: "My name is John.", opts: ["Benim adım John.", "O John'dur.", "Senin adın John.", "Ben John."], ans: "Benim adım John." },
+                    { audio: "Thank you very much.", opts: ["Çok teşekkür ederim.", "Rica ederim.", "Lütfen.", "Özür dilerim."], ans: "Çok teşekkür ederim." }
+                ],
+                a2: [
+                    { audio: "What time is it?", opts: ["Saat kaç?", "Zaman nedir?", "Ne zaman gideceğiz?", "Bugün günlerden ne?"], ans: "Saat kaç?" },
+                    { audio: "I want to buy a ticket.", opts: ["Bir bilet almak istiyorum.", "Bilet nerede?", "Bilet satmak istiyorum.", "Biletim yok."], ans: "Bir bilet almak istiyorum." },
+                    { audio: "He works in a hospital.", opts: ["O bir hastanede çalışıyor.", "O hasta.", "O bir doktor.", "Hastane nerede?"], ans: "O bir hastanede çalışıyor." },
+                    { audio: "Are you ready?", opts: ["Hazır mısın?", "Nasılsın?", "Gidelim mi?", "Ne yapıyorsun?"], ans: "Hazır mısın?" },
+                    { audio: "The weather is nice today.", opts: ["Bugün hava güzel.", "Hava çok sıcak.", "Bugün yağmur yağıyor.", "Hava kötü."], ans: "Bugün hava güzel." }
+                ],
+                b1: [
+                    { audio: "If I have money, I will buy a car.", opts: ["Param olursa araba alacağım.", "Araba almak istiyorum.", "Param yok.", "Eğer param olursa ev alacağım."], ans: "Param olursa araba alacağım." },
+                    { audio: "You should see a doctor.", opts: ["Bir doktora görünmelisin.", "Doktor nerede?", "Doktor geldi.", "Doktora gitmek istemiyorum."], ans: "Bir doktora görünmelisin." },
+                    { audio: "I've been working here for two years.", opts: ["İki yıldır burada çalışıyorum.", "İki yıl boyunca çalıştım.", "Burada çalışacağım.", "İki yıldır buradayım."], ans: "İki yıldır burada çalışıyorum." },
+                    { audio: "Have you ever been to Paris?", opts: ["Hiç Paris'te bulundun mu?", "Paris'e gidecek misin?", "Paris güzel mi?", "Paris'te mi yaşıyorsun?"], ans: "Hiç Paris'te bulundun mu?" },
+                    { audio: "Could you tell me the way to the bank?", opts: ["Bana bankanın yolunu söyleyebilir misiniz?", "Banka nerede?", "Bankaya gidiyor musunuz?", "Bankaya nasıl giderim?"], ans: "Bana bankanın yolunu söyleyebilir misiniz?" }
+                ],
+                b2: [
+                    { audio: "The economic situation is fluctuating.", opts: ["Ekonomik durum dalgalanıyor.", "Ekonomi çok iyi.", "Ekonomi kötüye gidiyor.", "Para kalmadı."], ans: "Ekonomik durum dalgalanıyor." },
+                    { audio: "It is essential to allocate resources properly.", opts: ["Kaynakları düzgün tahsis etmek esastır.", "Kaynaklar harcanmalı.", "Kaynaklarımız yok.", "Paramız kalmadı."], ans: "Kaynakları düzgün tahsis etmek esastır." },
+                    { audio: "Artificial intelligence will transform industries.", opts: ["Yapay zeka endüstrileri dönüştürecek.", "Yapay zeka tehlikelidir.", "Yapay zeka her şeyi yapabilir.", "Yapay zeka çok hızlıdır."], ans: "Yapay zeka endüstrileri dönüştürecek." },
+                    { audio: "Environmental policies must be strictly enforced.", opts: ["Çevre politikaları sıkı bir şekilde uygulanmalıdır.", "Çevre çok kirlidir.", "Politikalar işe yaramaz.", "Çevreyi korumalıyız."], ans: "Çevre politikaları sıkı bir şekilde uygulanmalıdır." },
+                    { audio: "He demonstrated an analytical approach to the problem.", opts: ["Probleme analitik bir yaklaşım sergiledi.", "Problem çok zordu.", "Problemi çözemedi.", "Problem anlaşılmazdı."], ans: "Probleme analitik bir yaklaşım sergiledi." }
+                ]
+            };
+
+            var WRITING_DATA = { a1: [], a2: [], b1: [], b2: [] };
+            var LISTENING_DATA = { a1: [], a2: [], b1: [], b2: [] };
+            ["a1", "a2", "b1", "b2"].forEach(function (lvl) {
+                for (var i = 0; i < 50; i++) {
+                    var bw = BASE_WRITING[lvl][i % BASE_WRITING[lvl].length];
+                    var mixWQs = [bw];
+                    for (var j = 1; j < 5; j++) { mixWQs.push(BASE_WRITING[lvl][(i + j) % BASE_WRITING[lvl].length]); }
+                    WRITING_DATA[lvl].push({ qs: mixWQs });
+
+                    var bl = BASE_LISTENING[lvl][i % BASE_LISTENING[lvl].length];
+                    var mixLQs = [bl];
+                    for (var j = 1; j < 5; j++) { mixLQs.push(BASE_LISTENING[lvl][(i + j) % BASE_LISTENING[lvl].length]); }
+                    LISTENING_DATA[lvl].push({ qs: mixLQs });
+                }
+            });
+
+            // ── STATE ────────────────────────────────────────────────
+            var curLvl = "a1";
+            var curSection = "kelime";
+            var lastMode = "kelime"; // "kelime" or "okuma"
+            var lastLvl = "a1", lastIdx = 0;
+
+            // Unlocks
+            var wUnlocked = { a1: 1, a2: 1, b1: 1, b2: 1 };
+            var rUnlocked = { a1: 1, a2: 1, b1: 1, b2: 1 };
+            var yUnlocked = { a1: 1, a2: 1, b1: 1, b2: 1 };
+            var lUnlocked = { a1: 1, a2: 1, b1: 1, b2: 1 };
+
+            var qList = [], qIdx = 0, qCorrect = 0, qHearts = 3, qAnswered = false, qSel = null;
+
+            // XP system
+            var totalXP = 0;
+            var STREAK = 0;
+
+            function xpForLevel(lvl) { return 100 * lvl; }
+
+            function getLevelInfo(xp) {
+                var lvl = 1, accumulated = 0;
+                while (lvl < 100) {
+                    var needed = xpForLevel(lvl);
+                    if (xp < accumulated + needed) {
+                        return { level: lvl, current: xp - accumulated, needed: needed };
+                    }
+                    accumulated += needed;
+                    lvl++;
+                }
+                return { level: 100, current: 0, needed: xpForLevel(100) };
+            }
+
+            // ── SCREEN SWITCH ─────────────────────────────────────────
+            function show(id) {
+                document.querySelectorAll(".scr").forEach(function (s) { s.classList.remove("show"); });
+                document.getElementById(id).classList.add("show");
+            }
+
+            // ── HOME ──────────────────────────────────────────────────
+            function openHome() {
+                var info = getLevelInfo(totalXP);
+                document.getElementById("hXp").textContent = info.level;
+                document.getElementById("lvlDisp").textContent = info.level;
+                document.getElementById("xpDisp").textContent = info.current;
+                document.getElementById("xpNextDisp").textContent = info.needed;
+                document.getElementById("xpBar").style.width = Math.round(info.current / info.needed * 100) + "%";
+
+                renderSection(curSection);
+                show("sHome");
+            }
+
+            function renderSection(sec) {
+                curSection = sec;
+                document.querySelectorAll(".ni").forEach(function (n) {
+                    n.classList.toggle("on", n.dataset.sec === sec);
+                });
+
+                var box = document.getElementById("sectionContent");
+                box.innerHTML = "";
+
+                if (sec === "kelime" || sec === "okuma" || sec === "yazma" || sec === "dinleme") {
+                    // Create Level Tabs
+                    var tabs = document.createElement("div");
+                    tabs.className = "tabs";["a1", "a2", "b1", "b2"].forEach(function (lvl, i) {
+                        var labels = ["🌱 A1", "🌿 A2", "🌳 B1", "🏆 B2"];
+                        var btn = document.createElement("button");
+                        btn.className = "tab " + lvl + (lvl === curLvl ? " on" : "");
+                        btn.textContent = labels[i];
+                        btn.addEventListener("click", function () { curLvl = lvl; renderSection(sec); });
+                        tabs.appendChild(btn);
+                    });
+                    box.appendChild(tabs);
+
+                    if (sec === "kelime") renderWordUnits(box);
+                    if (sec === "okuma") renderReadingUnits(box);
+                    if (sec === "yazma") renderWritingUnits(box);
+                    if (sec === "dinleme") renderListeningUnits(box);
+
+                } else {
+                    var icons = { yazma: "✍️", dinleme: "🎧", konusma: "🗣️" };
+                    var names = { yazma: "Yazma", dinleme: "Dinleme", konusma: "Konuşma" };
+                    var descs = {
+                        yazma: "Cümle kurma, paragraf yazma egzersizleri yakında.",
+                        dinleme: "Ses klipleri ve dinleme anlama soruları yakında.",
+                        konusma: "Telaffuz ve konuşma pratikleri yakında."
+                    };
+                    var div = document.createElement("div");
+                    div.className = "coming-soon";
+                    div.innerHTML = '<div class="cs-icon">' + icons[sec] + '</div>'
+                        + '<h3>' + names[sec] + ' Pratiği</h3>'
+                        + '<p>' + descs[sec] + '</p>';
+                    box.appendChild(div);
+                }
+            }
+
+            // ── KELİME UI ─────────────────────────────────────────────
+            function renderWordUnits(box) {
+                var lvl = curLvl;
+                var allUnits = lvl === "a1" ? UNITS_A1 : lvl === "a2" ? UNITS_A2 : lvl === "b1" ? UNITS_B1 : UNITS_B2;
+                var unlocked = wUnlocked[lvl];
+
+                var label = document.createElement("div");
+                label.className = "stitle";
+                label.textContent = lvl.toUpperCase() + " · Kelime Dersleri (" + allUnits.length + " Ders)";
+                box.appendChild(label);
+
+                var wrap = document.createElement("div");
+                wrap.className = "lessons";
+                allUnits.forEach(function (words, i) {
+                    var locked = i >= unlocked;
+                    var st = i < unlocked - 1 ? "done" : (i === unlocked - 1 ? "active" : "locked");
+                    var stars = i < unlocked - 1 ? 3 : 0;
+                    var btn = makeLesson("📝", "Ders " + (i + 1), st, stars);
+
+                    if (!locked) {
+                        btn.addEventListener("click", function () { startQuiz(lvl, "Ders " + (i + 1), i); });
+                    } else {
+                        btn.addEventListener("click", showLock);
+                    }
+                    wrap.appendChild(btn);
+                });
+                box.appendChild(wrap);
+            }
+
+            // ── OKUMA UI ──────────────────────────────────────────────
+            function renderReadingUnits(box) {
+                var lvl = curLvl;
+                var allReads = READING_DATA[lvl] || [];
+                var unlocked = rUnlocked[lvl];
+
+                var label = document.createElement("div");
+                label.className = "stitle";
+                label.textContent = lvl.toUpperCase() + " · Okuma Parçaları (" + allReads.length + " Ders)";
+                box.appendChild(label);
+
+                var wrap = document.createElement("div");
+                wrap.className = "lessons";
+
+                if (allReads.length === 0) {
+                    wrap.innerHTML = "<p style='font-size:12px; color:var(--gray); text-align:center; padding:20px;'>Bu seviye için okuma metni henüz eklenmedi.</p>";
+                }
+
+                allReads.forEach(function (rData, i) {
+                    var locked = i >= unlocked;
+                    var st = i < unlocked - 1 ? "done" : (i === unlocked - 1 ? "active" : "locked");
+                    var stars = i < unlocked - 1 ? 3 : 0;
+                    var btn = makeLesson("📖", "Okuma " + (i + 1), st, stars);
+
+                    if (!locked) {
+                        btn.addEventListener("click", function () { startReading(lvl, i); });
+                    } else {
+                        btn.addEventListener("click", showLock);
+                    }
+                    wrap.appendChild(btn);
+                });
+                box.appendChild(wrap);
+            }
+
+            function renderWritingUnits(box) {
+                var lvl = curLvl;
+                var allWrites = WRITING_DATA[lvl] || [];
+                var unlocked = yUnlocked[lvl];
+
+                var label = document.createElement("div");
+                label.className = "stitle";
+                label.textContent = lvl.toUpperCase() + " · Yazma Dersleri (" + allWrites.length + " Ders)";
+                box.appendChild(label);
+
+                var wrap = document.createElement("div");
+                wrap.className = "lessons";
+
+                allWrites.forEach(function (wData, i) {
+                    var locked = i >= unlocked;
+                    var st = i < unlocked - 1 ? "done" : (i === unlocked - 1 ? "active" : "locked");
+                    var stars = i < unlocked - 1 ? 3 : 0;
+                    var btn = makeLesson("✍️", "Yazma " + (i + 1), st, stars);
+
+                    if (!locked) {
+                        btn.addEventListener("click", function () { startWriting(lvl, i); });
+                    } else {
+                        btn.addEventListener("click", showLock);
+                    }
+                    wrap.appendChild(btn);
+                });
+                box.appendChild(wrap);
+            }
+
+            function renderListeningUnits(box) {
+                var lvl = curLvl;
+                var allListens = LISTENING_DATA[lvl] || [];
+                var unlocked = lUnlocked[lvl];
+
+                var label = document.createElement("div");
+                label.className = "stitle";
+                label.textContent = lvl.toUpperCase() + " · Dinleme Dersleri (" + allListens.length + " Ders)";
+                box.appendChild(label);
+
+                var wrap = document.createElement("div");
+                wrap.className = "lessons";
+
+                allListens.forEach(function (lData, i) {
+                    var locked = i >= unlocked;
+                    var st = i < unlocked - 1 ? "done" : (i === unlocked - 1 ? "active" : "locked");
+                    var stars = i < unlocked - 1 ? 3 : 0;
+                    var btn = makeLesson("🎧", "Dinleme " + (i + 1), st, stars);
+
+                    if (!locked) {
+                        btn.addEventListener("click", function () { startListening(lvl, i); });
+                    } else {
+                        btn.addEventListener("click", showLock);
+                    }
+                    wrap.appendChild(btn);
+                });
+                box.appendChild(wrap);
+            }
+
+            function makeLesson(icon, label, state, stars) {
+                var btn = document.createElement("div");
+                btn.className = "lbtn";
+                var s = "";
+                if (stars > 0) { s = '<div class="lstars">'; for (var i = 0; i < 3; i++)s += (i < stars ? "⭐" : "☆"); s += "</div>"; }
+                btn.innerHTML = s + '<div class="lcircle ' + state + '">' + (state === "locked" ? "🔒" : icon) + '</div><div class="llabel">' + label + '</div>';
+                return btn;
+            }
+
+            function showLock() {
+                var m = document.getElementById("lockMsg");
+                m.classList.add("show");
+                setTimeout(function () { m.classList.remove("show"); }, 2000);
+            }
+
+            // ── KELİME QUIZ LOGIC ─────────────────────────────────────
+            function buildQuestions(lvl, idx) {
+                var allUnits = lvl === "a1" ? UNITS_A1 : lvl === "a2" ? UNITS_A2 : lvl === "b1" ? UNITS_B1 : UNITS_B2;
+                var words = allUnits[idx] || allUnits[0];
+                var pool = [];
+                allUnits.forEach(function (u) { pool = pool.concat(u); });
+                var qs = [];
+                words.slice(0, 5).forEach(function (w) {
+                    var corr = TR[w] || w;
+                    var dist = [], used = {}, p2 = pool.slice();
+                    while (dist.length < 3 && p2.length > 0) {
+                        var ri = Math.floor(Math.random() * p2.length);
+                        var pw = p2.splice(ri, 1)[0];
+                        var pt = TR[pw];
+                        if (pt && pt !== corr && !used[pt]) { used[pt] = 1; dist.push(pt); }
+                    }
+                    var opts = [{ t: corr, ok: true }];
+                    dist.forEach(function (d) { opts.push({ t: d, ok: false }); });
+                    for (var j = opts.length - 1; j > 0; j--) { var k = Math.floor(Math.random() * (j + 1)); var tmp = opts[j]; opts[j] = opts[k]; opts[k] = tmp; }
+                    qs.push({ word: w, opts: opts });
+                });
+                return qs;
+            }
+
+            function startQuiz(lvl, title, unitIdx) {
+                lastMode = "kelime";
+                lastLvl = lvl;
+                lastIdx = unitIdx;
+
+                qList = buildQuestions(lvl, unitIdx);
+                qIdx = 0; qCorrect = 0; qHearts = 3;
+
+                var colors = { a1: "#58cc02", a2: "#1cb0f6", b1: "#ff9600", b2: "#9b59f5" };
+                var badge = document.getElementById("qBadge");
+                badge.textContent = lvl.toUpperCase() + " · " + title;
+                badge.style.background = colors[lvl];
+
+                show("sQuiz");
+                loadQ();
+            }
+
+            function loadQ() {
+                qAnswered = false; qSel = null;
+                document.getElementById("btnCheck").className = "chk off";
+                document.getElementById("fbPanel").className = "fb";
+
+                var total = qList.length;
+                document.getElementById("progFill").style.width = (qIdx / total * 100) + "%";
+                document.getElementById("heartsEl").textContent = ["❤️❤️❤️", "❤️❤️🖤", "❤️🖤🖤", "🖤🖤🖤"][3 - qHearts];
+
+                var q = qList[qIdx];
+                document.getElementById("qWord").textContent = q.word;
+
+                var grid = document.getElementById("optsGrid");
+                grid.innerHTML = "";
+                q.opts.forEach(function (opt) {
+                    var btn = document.createElement("button");
+                    btn.className = "opt";
+                    btn.dataset.ok = opt.ok;
+                    btn.textContent = opt.t;
+                    btn.addEventListener("click", function () {
+                        if (qAnswered) return;
+                        document.querySelectorAll("#sQuiz .opt").forEach(function (b) { b.classList.remove("sel"); });
+                        btn.classList.add("sel");
+                        qSel = btn;
+                        document.getElementById("btnCheck").className = "chk on";
+                    });
+                    grid.appendChild(btn);
+                });
+            }
+
+            function checkAnswer() {
+                if (!qSel || qAnswered) return;
+                qAnswered = true;
+                var ok = qSel.dataset.ok === "true";
+                var q = qList[qIdx];
+                var panel = document.getElementById("fbPanel");
+
+                if (ok) {
+                    qSel.classList.add("ok");
+                    panel.className = "fb ok show";
+                    document.getElementById("fbIco").textContent = "🎉";
+                    document.getElementById("fbTtl").textContent = "Harika!";
+                    document.getElementById("fbSub").textContent = '"' + q.word + '" = ' + (TR[q.word] || "doğru");
+                    document.getElementById("btnCont").className = "cont g";
+                    qCorrect++;
+                    showXpPop();
+                } else {
+                    qSel.classList.add("no");
+                    document.querySelectorAll("#sQuiz .opt").forEach(function (b) { if (b.dataset.ok === "true") b.classList.add("ok"); });
+                    panel.className = "fb no show";
+                    document.getElementById("fbIco").textContent = "💔";
+                    document.getElementById("fbTtl").textContent = "Yanlış!";
+                    var c = q.opts.find(function (o) { return o.ok; });
+                    document.getElementById("fbSub").textContent = "Doğru cevap: " + c.t;
+                    document.getElementById("btnCont").className = "cont r";
+                    qHearts = Math.max(0, qHearts - 1);
+                }
+            }
+
+            // ── OKUMA QUIZ LOGIC ──────────────────────────────────────
+            var rData = null;
+
+            function startReading(lvl, idx) {
+                lastMode = "okuma";
+                lastLvl = lvl;
+                lastIdx = idx;
+
+                rData = READING_DATA[lvl][idx];
+
+                // transform questions to standard format
+                qList = rData.qs.map(function (item) {
+                    var options = item.opts.map(function (o) { return { t: o, ok: (o === item.ans) }; });
+                    // shuffle reading options
+                    for (var j = options.length - 1; j > 0; j--) { var k = Math.floor(Math.random() * (j + 1)); var tmp = options[j]; options[j] = options[k]; options[k] = tmp; }
+                    return { qText: item.q, opts: options };
+                });
+
+                qIdx = 0; qCorrect = 0; qHearts = 3;
+
+                var colors = { a1: "#58cc02", a2: "#1cb0f6", b1: "#ff9600", b2: "#9b59f5" };
+                var badge = document.getElementById("rBadge");
+                badge.textContent = lvl.toUpperCase() + " · Okuma " + (idx + 1);
+                badge.style.background = colors[lvl];
+
+                document.getElementById("rTitle").textContent = rData.title;
+                document.getElementById("rText").textContent = rData.text;
+
+                show("sReading");
+                loadRQ();
+            }
+
+            function loadRQ() {
+                qAnswered = false; qSel = null;
+                document.getElementById("btnRCheck").className = "chk off";
+                document.getElementById("rFbPanel").className = "fb";
+
+                var total = qList.length;
+                document.getElementById("rProgFill").style.width = (qIdx / total * 100) + "%";
+                document.getElementById("rHeartsEl").textContent = ["❤️❤️❤️", "❤️❤️🖤", "❤️🖤🖤", "🖤🖤🖤"][3 - qHearts];
+
+                var q = qList[qIdx];
+                document.getElementById("rQuestion").textContent = (qIdx + 1) + ". " + q.qText;
+
+                var grid = document.getElementById("rOptsGrid");
+                grid.innerHTML = "";
+                q.opts.forEach(function (opt) {
+                    var btn = document.createElement("button");
+                    btn.className = "opt";
+                    btn.dataset.ok = opt.ok;
+                    btn.textContent = opt.t;
+                    btn.addEventListener("click", function () {
+                        if (qAnswered) return;
+                        document.querySelectorAll("#sReading .opt").forEach(function (b) { b.classList.remove("sel"); });
+                        btn.classList.add("sel");
+                        qSel = btn;
+                        document.getElementById("btnRCheck").className = "chk on";
+                    });
+                    grid.appendChild(btn);
+                });
+            }
+
+            function checkRAnswer() {
+                if (!qSel || qAnswered) return;
+                qAnswered = true;
+                var ok = qSel.dataset.ok === "true";
+                var q = qList[qIdx];
+                var panel = document.getElementById("rFbPanel");
+
+                if (ok) {
+                    qSel.classList.add("ok");
+                    panel.className = "fb ok show";
+                    document.getElementById("rFbIco").textContent = "🎉";
+                    document.getElementById("rFbTtl").textContent = "Harika!";
+                    document.getElementById("rFbSub").textContent = "Metne göre doğru cevabı buldun.";
+                    document.getElementById("btnRCont").className = "cont g";
+                    qCorrect++;
+                    showXpPop();
+                } else {
+                    qSel.classList.add("no");
+                    document.querySelectorAll("#sReading .opt").forEach(function (b) { if (b.dataset.ok === "true") b.classList.add("ok"); });
+                    panel.className = "fb no show";
+                    document.getElementById("rFbIco").textContent = "💔";
+                    document.getElementById("rFbTtl").textContent = "Yanlış!";
+                    var c = q.opts.find(function (o) { return o.ok; });
+                    document.getElementById("rFbSub").textContent = "Doğru cevap: " + c.t;
+                    document.getElementById("btnRCont").className = "cont r";
+                    qHearts = Math.max(0, qHearts - 1);
+                }
+            }
+
+            // ── YAZMA QUIZ LOGIC ──────────────────────────────────────
+            function startWriting(lvl, idx) {
+                lastMode = "yazma";
+                lastLvl = lvl;
+                lastIdx = idx;
+
+                var data = WRITING_DATA[lvl][idx];
+                qList = data.qs;
+                qIdx = 0; qCorrect = 0; qHearts = 3;
+
+                var colors = { a1: "#58cc02", a2: "#1cb0f6", b1: "#ff9600", b2: "#9b59f5" };
+                var badge = document.getElementById("wBadge");
+                badge.textContent = lvl.toUpperCase() + " · Yazma " + (idx + 1);
+                badge.style.background = colors[lvl];
+
+                show("sWriting");
+                loadWQ();
+            }
+
+            function loadWQ() {
+                qAnswered = false;
+                document.getElementById("btnWCheck").className = "chk off";
+                document.getElementById("wFbPanel").className = "fb";
+
+                var input = document.getElementById("wInput");
+                input.value = "";
+                input.style.borderColor = "var(--brd)";
+                input.oninput = function () {
+                    if (input.value.trim() !== "") document.getElementById("btnWCheck").className = "chk on";
+                    else document.getElementById("btnWCheck").className = "chk off";
+                };
+
+                var total = qList.length;
+                document.getElementById("wProgFill").style.width = (qIdx / total * 100) + "%";
+                document.getElementById("wHeartsEl").textContent = ["❤️❤️❤️", "❤️❤️🖤", "❤️🖤🖤", "🖤🖤🖤"][3 - qHearts];
+
+                var q = qList[qIdx];
+                document.getElementById("wQuestion").textContent = q.q;
+            }
+
+            function checkWAnswer() {
+                if (qAnswered) return;
+                var input = document.getElementById("wInput");
+                if (input.value.trim() === "") return;
+
+                qAnswered = true;
+                var q = qList[qIdx];
+                var panel = document.getElementById("wFbPanel");
+
+                var userAns = input.value.trim().toLowerCase().replace(/[.,!?]/g, "");
+                var realAns = q.ans.trim().toLowerCase().replace(/[.,!?]/g, "");
+
+                var ok = (userAns === realAns);
+
+                if (ok) {
+                    input.style.borderColor = "var(--g)";
+                    panel.className = "fb ok show";
+                    document.getElementById("wFbIco").textContent = "🎉";
+                    document.getElementById("wFbTtl").textContent = "Harika!";
+                    document.getElementById("wFbSub").textContent = "Doğru çeviri!";
+                    document.getElementById("btnWCont").className = "cont g";
+                    qCorrect++;
+                    showXpPop();
+                } else {
+                    input.style.borderColor = "var(--r)";
+                    panel.className = "fb no show";
+                    document.getElementById("wFbIco").textContent = "💔";
+                    document.getElementById("wFbTtl").textContent = "Yanlış!";
+                    document.getElementById("wFbSub").textContent = "Doğru cevap: " + q.ans;
+                    document.getElementById("btnWCont").className = "cont r";
+                    qHearts = Math.max(0, qHearts - 1);
+                }
+            }
+
+            // ── DİNLEME QUIZ LOGIC ────────────────────────────────────
+            function startListening(lvl, idx) {
+                lastMode = "dinleme";
+                lastLvl = lvl;
+                lastIdx = idx;
+
+                var data = LISTENING_DATA[lvl][idx];
+                qList = data.qs.map(function (item) {
+                    var options = item.opts.map(function (o) { return { t: o, ok: (o === item.ans) }; });
+                    for (var j = options.length - 1; j > 0; j--) { var k = Math.floor(Math.random() * (j + 1)); var tmp = options[j]; options[j] = options[k]; options[k] = tmp; }
+                    return { audio: item.audio, opts: options };
+                });
+
+                qIdx = 0; qCorrect = 0; qHearts = 3;
+
+                var colors = { a1: "#58cc02", a2: "#1cb0f6", b1: "#ff9600", b2: "#9b59f5" };
+                var badge = document.getElementById("lBadge");
+                badge.textContent = lvl.toUpperCase() + " · Dinleme " + (idx + 1);
+                badge.style.background = colors[lvl];
+
+                show("sListening");
+                loadLQ();
+            }
+
+            function loadLQ() {
+                qAnswered = false; qSel = null;
+                document.getElementById("btnLCheck").className = "chk off";
+                document.getElementById("lFbPanel").className = "fb";
+
+                var total = qList.length;
+                document.getElementById("lProgFill").style.width = (qIdx / total * 100) + "%";
+                document.getElementById("lHeartsEl").textContent = ["❤️❤️❤️", "❤️❤️🖤", "❤️🖤🖤", "🖤🖤🖤"][3 - qHearts];
+
+                var q = qList[qIdx];
+
+                var btnPlay = document.getElementById("btnPlayAudio");
+                btnPlay.onclick = function () {
+                    var msg = new SpeechSynthesisUtterance(q.audio);
+                    msg.lang = 'en-US';
+                    window.speechSynthesis.speak(msg);
+
+                    btnPlay.style.transform = "translateY(4px)";
+                    btnPlay.style.boxShadow = "0 4px 0 #1899d6";
+                    setTimeout(function () {
+                        btnPlay.style.transform = "translateY(0)";
+                        btnPlay.style.boxShadow = "0 8px 0 #1899d6";
+                    }, 150);
+                };
+
+                setTimeout(function () { btnPlay.click(); }, 300);
+
+                var grid = document.getElementById("lOptsGrid");
+                grid.innerHTML = "";
+                q.opts.forEach(function (opt) {
+                    var btn = document.createElement("button");
+                    btn.className = "opt";
+                    btn.dataset.ok = opt.ok;
+                    btn.textContent = opt.t;
+                    btn.addEventListener("click", function () {
+                        if (qAnswered) return;
+                        document.querySelectorAll("#sListening .opt").forEach(function (b) { b.classList.remove("sel"); });
+                        btn.classList.add("sel");
+                        qSel = btn;
+                        document.getElementById("btnLCheck").className = "chk on";
+                    });
+                    grid.appendChild(btn);
+                });
+            }
+
+            function checkLAnswer() {
+                if (!qSel || qAnswered) return;
+                qAnswered = true;
+                var ok = qSel.dataset.ok === "true";
+                var q = qList[qIdx];
+                var panel = document.getElementById("lFbPanel");
+
+                if (ok) {
+                    qSel.classList.add("ok");
+                    panel.className = "fb ok show";
+                    document.getElementById("lFbIco").textContent = "🎉";
+                    document.getElementById("lFbTtl").textContent = "Harika!";
+                    document.getElementById("lFbSub").textContent = "Doğru duydun!";
+                    document.getElementById("btnLCont").className = "cont g";
+                    qCorrect++;
+                    showXpPop();
+                } else {
+                    qSel.classList.add("no");
+                    document.querySelectorAll("#sListening .opt").forEach(function (b) { if (b.dataset.ok === "true") b.classList.add("ok"); });
+                    panel.className = "fb no show";
+                    document.getElementById("lFbIco").textContent = "💔";
+                    document.getElementById("lFbTtl").textContent = "Yanlış!";
+                    var c = q.opts.find(function (o) { return o.ok; });
+                    document.getElementById("lFbSub").textContent = "Doğru cevap: " + c.t;
+                    document.getElementById("btnLCont").className = "cont r";
+                    qHearts = Math.max(0, qHearts - 1);
+                }
+            }
+
+            // ── COMMON COMPLETE & PROGRESSION ─────────────────────────
+            function nextQ() {
+                qIdx++;
+                if (qIdx >= qList.length) { showComplete(); return; }
+                if (lastMode === "kelime") loadQ();
+                else if (lastMode === "okuma") loadRQ();
+                else if (lastMode === "yazma") loadWQ();
+                else if (lastMode === "dinleme") loadLQ();
+            }
+
+            function showComplete() {
+                var acc = Math.round(qCorrect / qList.length * 100);
+                var earned = 50 + (qCorrect * 15) + (acc === 100 ? 20 : 0);
+
+                var infoBefore = getLevelInfo(totalXP);
+                totalXP += earned;
+                var infoAfter = getLevelInfo(totalXP);
+                STREAK += 1;
+
+                document.getElementById("cXp").textContent = "+" + earned;
+                document.getElementById("cAcc").textContent = acc + "%";
+
+                // Seviye atlama göstergesi
+                var lvlUpEl = document.getElementById("cLvlUp");
+                if (infoAfter.level > infoBefore.level) {
+                    lvlUpEl.textContent = "🎊 SEVİYE " + infoAfter.level + "!";
+                    lvlUpEl.style.display = "block";
+                } else {
+                    lvlUpEl.style.display = "none";
+                }
+
+                if (lastMode === "kelime") {
+                    var maxW = (lastLvl === "a1" ? UNITS_A1 : lastLvl === "a2" ? UNITS_A2 : lastLvl === "b1" ? UNITS_B1 : UNITS_B2).length;
+                    if (lastIdx + 1 >= wUnlocked[lastLvl]) { wUnlocked[lastLvl] = Math.min(lastIdx + 2, maxW); }
+                } else if (lastMode === "okuma") {
+                    var maxR = READING_DATA[lastLvl].length;
+                    if (lastIdx + 1 >= rUnlocked[lastLvl]) { rUnlocked[lastLvl] = Math.min(lastIdx + 2, maxR); }
+                } else if (lastMode === "yazma") {
+                    var maxY = WRITING_DATA[lastLvl].length;
+                    if (lastIdx + 1 >= yUnlocked[lastLvl]) { yUnlocked[lastLvl] = Math.min(lastIdx + 2, maxY); }
+                } else if (lastMode === "dinleme") {
+                    var maxL = LISTENING_DATA[lastLvl].length;
+                    if (lastIdx + 1 >= lUnlocked[lastLvl]) { lUnlocked[lastLvl] = Math.min(lastIdx + 2, maxL); }
+                }
+
+                show("sComplete");
+            }
+
+            function showXpPop() {
+                var p = document.getElementById("xpPop");
+                p.classList.add("show");
+                setTimeout(function () {
+                    p.classList.remove("show"); p.classList.add("hide");
+                    setTimeout(function () { p.classList.remove("hide"); }, 300);
+                }, 1200);
+            }
+
+            // ── EVENT LISTENERS ──────────────────────────────────────
+            document.getElementById("btnStart").addEventListener("click", openHome);
+
+            // Kelime Quiz
+            document.getElementById("btnCloseQuiz").addEventListener("click", openHome);
+            document.getElementById("btnCheck").addEventListener("click", checkAnswer);
+            document.getElementById("btnCont").addEventListener("click", nextQ);
+
+            // Okuma Quiz
+            document.getElementById("btnClReading").addEventListener("click", openHome);
+            document.getElementById("btnRCheck").addEventListener("click", checkRAnswer);
+            document.getElementById("btnRCont").addEventListener("click", nextQ);
+
+            // Yazma Quiz
+            document.getElementById("btnClWriting").addEventListener("click", openHome);
+            document.getElementById("btnWCheck").addEventListener("click", checkWAnswer);
+            document.getElementById("btnWCont").addEventListener("click", nextQ);
+            document.getElementById("wInput").addEventListener("keypress", function (e) { if (e.key === "Enter") checkWAnswer(); });
+
+            // Dinleme Quiz
+            document.getElementById("btnClListening").addEventListener("click", openHome);
+            document.getElementById("btnLCheck").addEventListener("click", checkLAnswer);
+            document.getElementById("btnLCont").addEventListener("click", nextQ);
+
+            document.getElementById("btnToHome").addEventListener("click", openHome);
+            document.getElementById("lockMsg").addEventListener("click", function () {
+                document.getElementById("lockMsg").classList.remove("show");
+            });
+
+            // Bottom Nav
+            document.getElementById("sHome").addEventListener("click", function (e) {
+                var ni = e.target.closest(".ni[data-sec]");
+                if (ni) renderSection(ni.dataset.sec);
+            });
+
+            // ── SETTINGS ─────────────────────────────────────────────
+            var isDark = false;
+            function openSettings() {
+                document.getElementById("settingsOverlay").classList.add("show");
+                document.getElementById("settingsPanel").classList.add("show");
+            }
+            function closeSettings() {
+                document.getElementById("settingsOverlay").classList.remove("show");
+                document.getElementById("settingsPanel").classList.remove("show");
+            }
+            function applyTheme() {
+                document.getElementById("phone").classList.toggle("dark", isDark);
+                document.getElementById("themeToggle").classList.toggle("on", isDark);
+            }
+
+            document.getElementById("btnSettings").addEventListener("click", openSettings);
+            document.getElementById("btnSettingsClose").addEventListener("click", closeSettings);
+            document.getElementById("settingsOverlay").addEventListener("click", closeSettings);
+            document.getElementById("themeToggle").addEventListener("click", function () {
+                isDark = !isDark; applyTheme();
+            });
+
+        })();
+    </script>
+</body>
+
+</html>
