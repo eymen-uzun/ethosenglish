@@ -1064,13 +1064,14 @@
             <div class="owl-big">🦉</div>
             <div class="sp-title">LinguaQuest</div>
             <div class="sp-sub">A1 → B2 İngilizce Yolculuğu</div>
+            <input type="text" id="userNameInput" placeholder="İsminizi girin" style="padding: 15px; border-radius: 14px; border: none; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800; text-align: center; width: 80%; max-width: 250px; outline: none; background: rgba(255,255,255,0.95); color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
             <button class="btn-green" id="btnStart">BAŞLA</button>
         </div>
 
         <!-- HOME -->
         <div class="scr" id="sHome">
             <div class="hdr">
-                <div class="hlang"><span style="font-size:20px">🇬🇧</span> İngilizce</div>
+                <div class="hlang"><span style="font-size:20px">👋</span> <span id="userNameDisp">Misafir Kullanıcı</span></div>
                 <div class="hstats" style="display:flex;align-items:center;gap:10px">
                     <div class="chip x">⚡ Lv.<span id="hXp">1</span></div>
                     <button class="gear-btn" id="btnSettings">⚙️</button>
@@ -1606,6 +1607,10 @@
 
             // ── HOME ──────────────────────────────────────────────────
             function openHome() {
+                var nameInput = document.getElementById("userNameInput").value.trim();
+                var dispName = nameInput === "" ? "Misafir Kullanıcı" : nameInput;
+                document.getElementById("userNameDisp").textContent = dispName;
+
                 var info = getLevelInfo(totalXP);
                 document.getElementById("hXp").textContent = info.level;
                 document.getElementById("lvlDisp").textContent = info.level;
